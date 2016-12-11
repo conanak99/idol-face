@@ -59,6 +59,7 @@
 
 .quote.stripe.segment {
   padding: 0em;
+  border-top: 1px solid rgba(34,36,38,.15);
 }
 .quote.stripe.segment .grid .column {
   padding-top: 5em;
@@ -73,26 +74,23 @@
   display: none;
 }
 
+.fixed.inverted.menu .toc.item {
+  display: none;
+}
+
+.fb-comments, .fb-comments * {
+    width:100% !important;
+}
+
 @media only screen and (max-width: 700px) {
-  .ui.fixed.menu {
-    display: none !important;
-  }
-  .secondary.pointing.menu .item,
-  .secondary.pointing.menu .menu {
+  .fixed.inverted.menu .item,
+  .fixed.inverted.menu .menu {
     display: none;
   }
-  .secondary.pointing.menu .toc.item {
+  .fixed.inverted.menu .toc.item {
     display: block;
   }
-  .masthead.segment {
-    min-height: 350px;
-  }
-  .masthead h1.ui.header {
-    font-size: 2em;
-    margin-top: 1.5em;
-  }
-  .masthead h2 {
-    margin-top: 0.5em;
-    font-size: 1.5em;
+  .ui.header {
+    margin-top: 2em;
   }
 }
