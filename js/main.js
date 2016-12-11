@@ -22,7 +22,7 @@ app.directive("fileread", [() => ({
 app.config([
     'toastrConfig',
     toastrConfig => {
-        angular.extend(toastrConfig, {timeOut: 3000});
+        angular.extend(toastrConfig, {timeOut: 5000});
     }
 ]);
 
@@ -87,7 +87,7 @@ app.factory('recognizeService', ['$q',
                         if (r.Candidates.length > 0) {
                             const firstCandidate = r.Candidates[0];
                             let fontSize = (face.Width * ratio / 6);
-                            let minFontSize = 12;
+                            let minFontSize = 15;
                             fontSize = Math.max(fontSize, minFontSize);
 
                             candidate = {
@@ -96,7 +96,8 @@ app.factory('recognizeService', ['$q',
                                 nameStyle: {
                                     width: faceStyle.width,
                                     'font-size': `${fontSize}px`,
-                                    bottom: `-${fontSize}px`
+                                    'line-height': `${fontSize - 2}px`
+                                    bottom: `-${fontSize}px`,
                                 }
                             };
                         };
@@ -123,11 +124,14 @@ app.controller('mainCtrl', [
         // Reset image link when change sourcesource
         $scope.$watch('input.source', (newVal, oldVal) => {
             $scope.input.imageLink = "";
+        });
+
+        $scope.$watch('input.imageLink', (newVal, oldVal) => {
             $scope.faces = [];
         });
 
         $scope.recognize = () => {
-
+            $scope.btnDisable = true;
             if ($scope.input.source == 'link') {
                 recognizeService.recognizeImage($scope.input.imageLink).then(displayResult);
             } else {
@@ -140,11 +144,13 @@ app.controller('mainCtrl', [
         }
 
         function displayResult(result) {
+            $scope.btnDisable = false;
             $scope.faces = result;
         }
 
         function displayError(errors) {
             toastr.error('Lỗi cbnr');
+            $scope.btnDisable = false;
             console.log(errors);
         }
     }
