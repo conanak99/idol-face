@@ -134,7 +134,8 @@ app.controller('mainCtrl', [
                 recognizeService.uploadImage($scope.input.imageLink).then(result => {
                     const url = result.data.url;
                     return url;
-                }).then(recognizeService.recognizeImage).then(displayResult);
+                }).then(recognizeService.recognizeImage.bind(recognizeService))
+                .then(displayResult);
             }
         }
 
