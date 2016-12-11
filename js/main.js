@@ -9,7 +9,7 @@ $(() => {
     // create sidebar and attach to menu open
     $('.ui.sidebar').sidebar('attach events', '.toc.item');
 
-    $(document).on('click', 'a', function(event) {
+    $(document).on('click', '.ui.menu:not(.pagination) a.item', function(event) {
         event.preventDefault();
 
         $('html, body').animate({
