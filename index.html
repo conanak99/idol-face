@@ -27,7 +27,7 @@
             <a href="#guide" class="item">Hướng dẫn sử dụng</a>
             <a href="#idol-list" class="item">Danh sách idol</a>
             <a href="#review" class="item">Đánh giá</a>
-            <a href="#about" class="item">Về chúng tôi</a>
+            <a href="#about" class="item">Về tác giả</a>
             <a href="#discuss" class="item">Bình luận</a>
         </div>
 
@@ -44,7 +44,7 @@
                     <a href="#guide" class="item">Hướng dẫn sử dụng</a>
                     <a href="#idol-list" class="item">Danh sách idol</a>
                     <a href="#review" class="item">Đánh giá</a>
-                    <a href="#about" class="item">Về chúng tôi</a>
+                    <a href="#about" class="item">Về tác giả</a>
                     <a href="#discuss" class="item">Bình luận</a>
                 </div>
             </div>
@@ -201,7 +201,7 @@
                 </div>
 
                 <h2 id="about" class="section ui horizontal header divider">
-                    Về chúng tôi
+                    Về tác giả
                 </h2>
                 <div class="ui vertical stripe segment">
                     <div class="ui text container">
@@ -270,28 +270,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.tpls.min.js"></script>
-        <script>
-            $(() => {
-                $('.ui.radio.checkbox').checkbox();
-                // create sidebar and attach to menu open
-                $('.ui.sidebar').sidebar('attach events', '.toc.item');
+        <script src="/js/libs/dirPagination.js"></script>
 
-                $(document).on('click', 'a', function(event) {
-                    event.preventDefault();
-
-                    $('html, body').animate({
-                        scrollTop: $($.attr(this, 'href')).offset().top - 80
-                    }, 500);
-                });
-
-                $('.section').visibility({
-                  onTopVisible: function(calculations) {
-                        // top is on screen
-                        console.log(calculations);
-                    }
-                });
-            });
-        </script>
-        <script src="/js/dirPagination.js"></script>
         <script src="/js/main.js"></script>
+        <script src="/js/app.js"></script>
+
     </html>
