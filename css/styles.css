@@ -19,6 +19,7 @@
   display: inline-block;
 }
 
+
 .idol-face {
   position: absolute;
   text-align: left;
@@ -32,6 +33,18 @@
   min-width: 100px;
   position: absolute;
 }
+
+.ui.cards.idol-list {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+/* Trick to crop thumbnail */
+.idol-thumbnail {
+  height: 120px;
+  overflow: hidden;
+}
+
 
 .ui.image.responsive {
   max-width: 100%;
@@ -81,6 +94,20 @@
 .fb-comments, .fb-comments * {
     width:100% !important;
 }
+
+.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */
 
 @media only screen and (max-width: 700px) {
   .fixed.inverted.menu .item,

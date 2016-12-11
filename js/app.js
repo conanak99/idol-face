@@ -31,6 +31,33 @@ app.config(['paginationTemplateProvider',function(paginationTemplateProvider) {
     paginationTemplateProvider.setPath('/js/templates/dirPagination.tpl.html');
 }]);
 
+app.factory('idolService',['$http', function($http) {
+
+  function nameToLink(name) {
+    // Generate thumbnail link based on name
+    var lowerCaseName = name.trim().split(' ')
+    .map(n => n.toLowerCase()).join('-');
+    return `http://www.japanesebeauties.net/japanese/${lowerCaseName}/1/cute-${lowerCaseName}-1.jpg`;
+  }
+
+  return {
+    loadIdols() {
+      return $http({
+        method: 'GET',
+        url: 'https://s3-ap-southeast-1.amazonaws.com/linhtinh-hoangph/topIdols.json'
+      }).then(result => result.data.map(idol => {
+        return {
+          id: idol.ID,
+          name: idol.Name,
+          link: `http://www.jjgirls.com${idol.Link}`,
+          thumbnail : nameToLink(idol.Name),
+          bigThumb: nameToLink(idol.Name).replace('cute-', '')
+        };
+      }));
+    },
+  }
+}]);
+
 app.factory('recognizeService', ['$q',
     '$http',
     'toastr',
@@ -47,13 +74,6 @@ app.factory('recognizeService', ['$q',
                     file: imgBase64
                 }
             });
-        },
-
-        loadIdols() {
-          return $http({
-            method: 'GET',
-            url: 'https://s3-ap-southeast-1.amazonaws.com/linhtinh-hoangph/topIdols.json'
-          });
         },
 
         getImageSize(imgLink) {
@@ -126,15 +146,16 @@ app.factory('recognizeService', ['$q',
 app.controller('mainCtrl', [
     '$scope',
     'recognizeService',
+    'idolService',
     'toastr',
-    ($scope, recognizeService, toastr) => {
+    ($scope, recognizeService, idolService, toastr) => {
         $scope.input = {
             source: 'link',
             imageLink: ""
         };
 
-        recognizeService.loadIdols().then(result => {
-            $scope.idols = result.data;
+        idolService.loadIdols().then(result => {
+            $scope.idols = result;
         });
 
         // Reset image link when change sourcesource

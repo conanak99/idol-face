@@ -128,41 +128,29 @@
                         <input type="text" ng-model="idolSearch" placeholder="Tìm idol">
                         <i class="search icon"></i>
                     </div>
-                    <table class="ui striped compact single table">
-                        <thead>
-                            <tr>
-                                <th>ID</td>
-                                <th>Tên</td>
-                                <th>Link</td>
-                                <th>Trạng thái</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr dir-paginate="idol in idols | filter: idolSearch | itemsPerPage: 10">
-                                <td>{{idol.ID}}</td>
-                                <td>{{idol.Name}}</td>
-                                <td>
-                                    <a target="blank" ng-href="http://www.jjgirls.com{{idol.Link}}">http://www.jjgirls.com{{idol.Link}}</a>
-                                </td>
-                                <td>
-                                    <span ng-if="idol.ID <= 500">
+
+                    <div class="idol-list ui six doubling cards">
+                        <div dir-paginate="idol in idols | filter: idolSearch | itemsPerPage: 12" class="card">
+                            <div class="image idol-thumbnail">
+                                <img src="{{idol.thumbnail}}">
+                            </div>
+                            <div class="content">
+                                <a target="blank" ng-href="{{idol.link}}" class="header">{{idol.name}}</a>
+                                <div class="meta">
+                                    <span ng-if="idol.id <= 500">
                                         <i class="green check circle icon"></i>
                                         Có thể nhận diện</span>
-                                    <span ng-if="idol.ID > 500">
+                                    <span ng-if="idol.id > 500">
                                         <i class="red remove circle icon"></i>
                                         Chưa thể nhận diện</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th colspan="4">
-                                    <dir-pagination-controls></dir-pagination-controls>
-                                </th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <dir-pagination-controls class="right floated"></dir-pagination-controls>
                 </div>
+
+                <div class="clearfix"></div>
 
                 <h2 id="review" class="section ui horizontal header divider">
                     Đánh giá
@@ -182,7 +170,7 @@
                                 </p>
                             </div>
                             <div class="column">
-                                <h3>"Có nằm mơ tôi cũng không ngờ công nghệ của Microsoft lại được áp dụng như thế"</h3>
+                                <h3>"Có nằm mơ tôi cũng không ngờ công nghệ của Microsoft lại được áp dụng một cách sáng tạo như thế"</h3>
                                 <p><img src="assets/images/avatar/nan.jpg" class="ui avatar image">
                                     <b>Bill Gates</b>
                                     Sáng lập Microsoft
