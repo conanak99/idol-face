@@ -1,0 +1,98 @@
+.ui.header {
+  margin-top: 3em;
+}
+
+.logo {
+  margin-right: 1em;
+}
+
+.small-margin {
+  margin-top: 0.5em;
+}
+
+.application {
+  padding-top: 1em;
+}
+
+.source-image {
+  position: relative;
+  display: inline-block;
+}
+
+.idol-face {
+  position: absolute;
+  text-align: left;
+  width: 0;
+  height: 0;
+  border: 2px #009c95 solid;
+}
+
+.idol-name {
+  color: #f26202;
+  min-width: 100px;
+  position: absolute;
+}
+
+.ui.image.responsive {
+  max-width: 100%;
+}
+
+.ui.vertical.stripe {
+  padding: 8em 0em;
+}
+.ui.vertical.stripe h3 {
+  font-size: 2em;
+}
+.ui.vertical.stripe .button + h3,
+.ui.vertical.stripe p + h3 {
+  margin-top: 3em;
+}
+.ui.vertical.stripe .floated.image {
+  clear: both;
+}
+.ui.vertical.stripe p {
+  font-size: 1.33em;
+}
+.ui.vertical.stripe .horizontal.divider {
+  margin: 3em 0em;
+}
+
+.quote.stripe.segment {
+  padding: 0em;
+}
+.quote.stripe.segment .grid .column {
+  padding-top: 5em;
+  padding-bottom: 5em;
+}
+
+.footer.segment {
+  padding: 5em 0em;
+}
+
+.secondary.pointing.menu .toc.item {
+  display: none;
+}
+
+@media only screen and (max-width: 700px) {
+  .ui.fixed.menu {
+    display: none !important;
+  }
+  .secondary.pointing.menu .item,
+  .secondary.pointing.menu .menu {
+    display: none;
+  }
+  .secondary.pointing.menu .toc.item {
+    display: block;
+  }
+  .masthead.segment {
+    min-height: 350px;
+  }
+  .masthead h1.ui.header {
+    font-size: 2em;
+    margin-top: 1.5em;
+  }
+  .masthead h2 {
+    margin-top: 0.5em;
+    font-size: 1.5em;
+  }
+}

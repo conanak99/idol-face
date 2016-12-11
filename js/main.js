@@ -1,53 +1,150 @@
-var sectionHeight = function() {
-  var total    = $(window).height(),
-      $section = $('section').css('height','auto');
+const app = angular.module('jav-idol-face', ['angular-loading-bar', 'toastr']);
 
-  if ($section.outerHeight(true) < total) {
-    var margin = $section.outerHeight(true) - $section.height();
-    $section.height(total - margin - 20);
-  } else {
-    $section.css('height','auto');
-  }
-}
+app.directive("fileread", [() => ({
+    scope: {
+        fileread: "="
+    },
 
-$(window).resize(sectionHeight);
+    link(scope, element, attributes) {
+        element.bind("change", changeEvent => {
+            const reader = new FileReader();
+            reader.onload = loadEvent => {
+                scope.$apply(() => {
+                    scope.fileread = loadEvent.target.result;
+                });
+            }
+            reader.readAsDataURL(changeEvent.target.files[0]);
+        });
+    }
+})
+]);
 
-$(document).ready(function(){
-  $("section h1, section h2").each(function(){
-    $("nav ul").append("<li class='tag-" + this.nodeName.toLowerCase() + "'><a href='#" + $(this).text().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g,'') + "'>" + $(this).text() + "</a></li>");
-    $(this).attr("id",$(this).text().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g,''));
-    $("nav ul li:first-child a").parent().addClass("active");
-  });
-  
-  $("nav ul li").on("click", "a", function(event) {
-    var position = $($(this).attr("href")).offset().top - 190;
-    $("html, body").animate({scrollTop: position}, 400);
-    $("nav ul li a").parent().removeClass("active");
-    $(this).parent().addClass("active");
-    event.preventDefault();    
-  });
-  
-  sectionHeight();
-  
-  $('img').load(sectionHeight);
-});
+app.config([
+    'toastrConfig',
+    toastrConfig => {
+        angular.extend(toastrConfig, {timeOut: 3000});
+    }
+]);
 
-fixScale = function(doc) {
+app.factory('recognizeService', ['$q',
+    '$http',
+    'toastr',
+    ($q, $http, toastr) => ({
+        uploadImage(imgBase64) {
+            toastr.info("Đang up ảnh");
+            const url = 'https://api.cloudinary.com/v1_1/hoangcloud/image/upload';
 
-  var addEvent = 'addEventListener',
-      type = 'gesturestart',
-      qsa = 'querySelectorAll',
-      scales = [1, 1],
-      meta = qsa in doc ? doc[qsa]('meta[name=viewport]') : [];
+            return $http({
+                method: 'POST',
+                url,
+                data: {
+                    upload_preset: 'jav-idols',
+                    file: imgBase64
+                }
+            });
+        },
 
-  function fix() {
-    meta.content = 'width=device-width,minimum-scale=' + scales[0] + ',maximum-scale=' + scales[1];
-    doc.removeEventListener(type, fix, true);
-  }
+        getImageSize(imgLink) {
+            return $q((resolve, reject) => {
+                const img = new Image(); // Create new img element
+                img.addEventListener("load", () => {
+                    resolve({width: img.width, height: img.height});
+                }, false);
+                img.src = imgLink; // Set source path
+            });
+        },
 
-  if ((meta = meta[meta.length - 1]) && addEvent in doc) {
-    fix();
-    scales = [.25, 1.6];
-    doc[addEvent](type, fix, true);
-  }
-};
+        recognizeImage(imgLink) {
+            toastr.info("Đang nhận diện, có thể hơi lâu, vui lòng chờ");
+            const url = 'https://jav-recognize.azurewebsites.net/api/HttpTriggerCSharp1';
+
+            return $http({
+                method: 'POST',
+                url,
+                headers: {
+                    'x-functions-key': 'k7dgy05qyfs8uwjvjrjdobt9x17c3yu0gteqyd0qqkomeu3di60kxsrkutl9yge0s2ixiil766r'
+                },
+                data: {
+                    url: imgLink
+                }
+            }).then((result) => {
+                return this.getImageSize(imgLink)
+                .then(size => {
+                    toastr.success('Xong rồi ahihi :">"');
+                    const originalWidth = size.width;
+                    const currentWidth = document.querySelector('#source-image').clientWidth;
+                    const ratio = currentWidth / originalWidth;
+                    const faces = result.data.map(r => {
+                        const face = r.Face.FaceRectangle;
+                        const faceStyle = {
+                            width: `${face.Width * ratio}px`,
+                            height: `${face.Height * ratio}px`,
+                            left: `${face.Left * ratio}px`,
+                            top: `${face.Top * ratio}px`
+                        };
+
+                        let candidate = {};
+                        if (r.Candidates.length > 0) {
+                            const firstCandidate = r.Candidates[0];
+                            let fontSize = (face.Width * ratio / 6);
+                            let minFontSize = 12;
+                            fontSize = Math.max(fontSize, minFontSize);
+
+                            candidate = {
+                                name: firstCandidate.Idol.Name,
+                                link: firstCandidate.Idol.Link,
+                                nameStyle: {
+                                    width: faceStyle.width,
+                                    'font-size': `${fontSize}px`,
+                                    bottom: `-${fontSize}px`
+                                }
+                            };
+                        };
+                        return {face: faceStyle, candidate};
+                    });
+
+                    return faces;
+                });
+            });
+        }
+    })
+]);
+
+app.controller('mainCtrl', [
+    '$scope',
+    'recognizeService',
+    'toastr',
+    ($scope, recognizeService, toastr) => {
+        $scope.input = {
+            source: 'link',
+            imageLink: ""
+        };
+
+        // Reset image link when change sourcesource
+        $scope.$watch('input.source', (newVal, oldVal) => {
+            $scope.input.imageLink = "";
+            $scope.faces = [];
+        });
+
+        $scope.recognize = () => {
+
+            if ($scope.input.source == 'link') {
+                recognizeService.recognizeImage($scope.input.imageLink).then(displayResult);
+            } else {
+                recognizeService.uploadImage($scope.input.imageLink).then(result => {
+                    const url = result.data.url;
+                    return url;
+                }).then(recognizeService.recognizeImage).then(displayResult);
+            }
+        }
+
+        function displayResult(result) {
+            $scope.faces = result;
+        }
+
+        function displayError(errors) {
+            toastr.error('Lỗi cbnr');
+            console.log(errors);
+        }
+    }
+]);

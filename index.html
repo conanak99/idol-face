@@ -7,22 +7,216 @@
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
         <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
         <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
-        <link rel="manifest" href="/manifest.json">
         <meta name="theme-color" content="#ffffff">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css"/>
-        <link rel="stylesheet" href="css/styles.css"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.min.css" />
+
+                <link rel="stylesheet" href="/css/styles.css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
     </head>
-    <body>
+    <body ng-app="jav-idol-face" ng-controller="mainCtrl"></div>
+    <div class="ui fixed inverted menu">
+        <div class="ui container">
+            <a href="#" class="header item">
+                <img class="ui logo" src="/images/logo.png">
+                Nhận diện Idol
+            </a>
+            <a href="#" class="item">Hướng dẫn sử dụng</a>
+            <a href="#" class="item">Đánh giá</a>
+            <a href="#" class="item">Bình luận</a>
+        </div>
+    </div>
 
-        <header></header>
+    <!-- Page Contents -->
 
-        <h1>Hello World</h1>
+    <div class="ui header inverted center aligned segment">
+        <div class="ui text container">
+            <img width="100" src="/images/header_logo.jpg" alt="" class="ui center">
+            <h1 class="ui inverted small-margin">
+                Nhận diện idol
+            </h1>
+            <h4 class="small-margin">Công cụ giúp bạn tìm JAV idol mà không cần hóng link từ các "thánh"</h4>
+        </div>
+    </div>
+
+    <div class="ui container">
+
+        <h2 class="ui horizontal header divider">
+            Nhận diện idol
+        </h2>
+        <div class="application">
+            <div class="ui form">
+                <div class="inline fields">
+                    <label for="fruit">Dán link vào đây hoặc upload ảnh</label>
+                    <div class="field" ng-click="input.source = 'link'">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="source" ng-model="input.source" value="link" checked="" tabindex="0" class="hidden">
+                            <label for="link">Dán link</label>
+                        </div>
+                    </div>
+                    <div class="field" ng-click="input.source = 'file'">
+                        <div class="ui radio checkbox">
+                            <input type="radio" name="fruit" ng-model="input.source" value="file" tabindex="0" class="hidden">
+                            <label for="file">Upload ảnh</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="ui action input">
+                        <input type="text" ng-if="input.source == 'link'" ng-model="input.imageLink" placeholder="Link ảnh"/>
+                        <input type="file" fileread="input.imageLink" ng-if="input.source == 'file'" placeholder="Upload ảnh"/>
+                        <button ng-disabled="!input.imageLink" ng-click="recognize()" class="ui icon primary button">
+                            <i class="search icon"></i>
+                            Tìm idol
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="ui center aligned basic segment">
+              <div class="source-image">
+
+              <img ng-src="{{input.imageLink}}" id="source-image" class="ui responsive image"/>
+              <div class="idol-face" ng-style="face.face" ng-repeat="face in faces">
+                <a target="_blank" ng-href="http://www.jjgirls.com{{face.candidate.link}}">
+                  <span ng-style="face.candidate.nameStyle" class="idol-name">{{face.candidate.name}}</span>
+                </a>
+              </div>
+              </div>
+              <!-- Result will be đisplay on image -->
+            </div>
+        </div>
+
+        <h2 class="ui horizontal header divider">
+            Hướng dẫn sử dụng
+        </h2>
+
+        <div>Hướng dẫn. Có thể thử dán một số link ảnh dưới đây.</div>
+
+        <h2 class="ui horizontal header divider">
+            Đánh giá
+        </h2>
+
+        <div class="ui vertical stripe segment">
+            <div class="ui middle aligned stackable grid container">
+                <div class="row">
+                    <div class="eight wide column">
+                        <h3 class="ui header">We Help Companies and Companions</h3>
+                        <p>We can give your company superpowers to do things that they never thought possible. Let us delight your customers and empower your needs...through pure data analytics.</p>
+                        <h3 class="ui header">We Make Bananas That Can Dance</h3>
+                        <p>Yes that's right, you thought it was the stuff of dreams, but even bananas can be bioengineered.</p>
+                    </div>
+                    <div class="six wide right floated column">
+                        <img src="assets/images/wireframe/white-image.png" class="ui large bordered rounded image">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="center aligned column">
+                        <a class="ui huge button">Check Them Out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui vertical stripe quote segment">
+            <div class="ui equal width stackable internally celled grid">
+                <div class="center aligned row">
+                    <div class="column">
+                        <h3>"Thật không thể tin nổi"</h3>
+                        <p><img src="assets/images/avatar/nan.jpg" class="ui avatar image">
+                            <b>Nguyễn Tử Quảng</b>
+                        </p>
+                    </div>
+                    <div class="column">
+                        <h3>"Bước tiến kì diệu về công nghệ. Có nằm mơ tôi cũng không ngờ công nghệ của MS lại được áp dụng như thế"</h3>
+                        <p><img src="assets/images/avatar/nan.jpg" class="ui avatar image">
+                            <b>Bill Gates</b>
+                            Sáng lập Microsoft</p>
+                    </div>
+                    <div class="column">
+                        <h3>"Một cái tát thẳng vào mặt những thằng post ảnh không đưa link"</h3>
+                        <p>
+                            <img src="assets/images/avatar/nan.jpg" class="ui avatar image">
+                            <b>Anh Huy</b>
+                            Admin Page 18+
+                        </p>
+                    </div>
+                    <div class="column">
+                        <h3>"Đằng sau một ứng dụng đơn giản là một stack công nghệ hoành tráng và phức tạp"</h3>
+                        <p>
+                            <img src="assets/images/avatar/nan.jpg" class="ui avatar image">
+                            <b>Hoàng Phạm</b>
+                            Admin Tôi đi code dạo
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="ui horizontal header divider">
+            Về chúng tôi
+        </h2>
+        <div class="ui vertical stripe segment">
+            <div class="ui text container">
+                <h3 class="ui header">Breaking The Grid, Grabs Your Attention</h3>
+                <p> Back end: Microsoft Cognitive Service, .NET Core, Azure Funtion, Cloudinary, Amazon EC2, Redis Cache,  </p>
+                <p> Front-end: Github Page, SemanticUI, AngularJS</p>
+                <a class="ui large button">Read More</a>
+                <h4 class="ui horizontal header divider">
+                    <a href="#">Case Studies</a>
+                </h4>
+                <h3 class="ui header">Did We Tell You About Our Bananas?</h3>
+                <p>Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but its really true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.</p>
+                <a class="ui large button">I'm Still Quite Interested</a>
+            </div>
+        </div>
+
+        <h2 class="ui horizontal header divider">
+            Bình luận
+        </h2>
+
+        <div class="ui inverted vertical footer segment">
+            <div class="ui container">
+                <div class="ui stackable inverted divided equal height stackable grid">
+                    <div class="three wide column">
+                        <h4 class="ui inverted header">About</h4>
+                        <div class="ui inverted link list">
+                            <a href="#" class="item">Sitemap</a>
+                            <a href="#" class="item">Contact Us</a>
+                            <a href="#" class="item">Religious Ceremonies</a>
+                            <a href="#" class="item">Gazebo Plans</a>
+                        </div>
+                    </div>
+                    <div class="three wide column">
+                        <h4 class="ui inverted header">Services</h4>
+                        <div class="ui inverted link list">
+                            <a href="#" class="item">Banana Pre-Order</a>
+                            <a href="#" class="item">DNA FAQ</a>
+                            <a href="#" class="item">How To Access</a>
+                            <a href="#" class="item">Favorite X-Men</a>
+                        </div>
+                    </div>
+                    <div class="seven wide column">
+                        <h4 class="ui inverted header">Footer Header</h4>
+                        <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </body>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0/angular.min.js"></script>
-    <script></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.tpls.min.js"></script>
+    <script>
+        $('.ui.radio.checkbox').checkbox();
+    </script>
+    <script src="/js/main.js"></script>
 </html>
