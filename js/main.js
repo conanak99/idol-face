@@ -1,4 +1,5 @@
-const app = angular.module('jav-idol-face', ['angular-loading-bar', 'toastr']);
+const app = angular.module('jav-idol-face',
+['angular-loading-bar', 'angularUtils.directives.dirPagination', 'toastr']);
 
 app.directive("fileread", [() => ({
     scope: {
@@ -26,6 +27,10 @@ app.config([
     }
 ]);
 
+app.config(['paginationTemplateProvider',function(paginationTemplateProvider) {
+    paginationTemplateProvider.setPath('/js/templates/dirPagination.tpl.html');
+}]);
+
 app.factory('recognizeService', ['$q',
     '$http',
     'toastr',
@@ -42,6 +47,13 @@ app.factory('recognizeService', ['$q',
                     file: imgBase64
                 }
             });
+        },
+
+        loadIdols() {
+          return $http({
+            method: 'GET',
+            url: 'https://s3-ap-southeast-1.amazonaws.com/linhtinh-hoangph/topIdols.json'
+          });
         },
 
         getImageSize(imgLink) {
@@ -96,7 +108,7 @@ app.factory('recognizeService', ['$q',
                                 nameStyle: {
                                     width: faceStyle.width,
                                     'font-size': `${fontSize}px`,
-                                    'line-height': `${fontSize - 2}px`
+                                    'line-height': `${fontSize - 2}px`,
                                     bottom: `-${fontSize}px`,
                                 }
                             };
@@ -121,6 +133,10 @@ app.controller('mainCtrl', [
             imageLink: ""
         };
 
+        recognizeService.loadIdols().then(result => {
+            $scope.idols = result.data;
+        });
+
         // Reset image link when change sourcesource
         $scope.$watch('input.source', (newVal, oldVal) => {
             $scope.input.imageLink = "";
@@ -131,6 +147,8 @@ app.controller('mainCtrl', [
         });
 
         $scope.recognize = () => {
+            if ($scope.btnDisable) return;
+
             $scope.btnDisable = true;
             if ($scope.input.source == 'link') {
                 recognizeService.recognizeImage($scope.input.imageLink).then(displayResult);

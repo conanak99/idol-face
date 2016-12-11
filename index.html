@@ -20,14 +20,15 @@
     <body ng-app="jav-idol-face" ng-controller="mainCtrl">
         <!-- Sidebar Menu -->
         <div class="ui vertical inverted sidebar menu">
-            <a href="#" class="header item">
+            <a href="#top" class="header item">
                 <img class="ui logo" src="/images/logo.png">
                 Nhận diện Idol
             </a>
-            <a href="#" class="item">Hướng dẫn sử dụng</a>
-            <a href="#" class="item">Đánh giá</a>
-            <a href="#" class="item">Về chúng tôi</a>
-            <a href="#" class="item">Bình luận</a>
+            <a href="#guide" class="item">Hướng dẫn sử dụng</a>
+            <a href="#idol-list" class="item">Danh sách idol</a>
+            <a href="#review" class="item">Đánh giá</a>
+            <a href="#about" class="item">Về chúng tôi</a>
+            <a href="#discuss" class="item">Bình luận</a>
         </div>
 
         <div class="pusher">
@@ -36,14 +37,15 @@
                     <a class="toc item">
                         <i class="sidebar icon"></i>
                     </a>
-                    <a href="#" class="header item">
+                    <a href="#top" class="header item">
                         <img class="ui logo" src="/images/logo.png">
                         Nhận diện Idol
                     </a>
-                    <a href="#" class="item">Hướng dẫn sử dụng</a>
-                    <a href="#" class="item">Đánh giá</a>
-                    <a href="#" class="item">Về chúng tôi</a>
-                    <a href="#" class="item">Bình luận</a>
+                    <a href="#guide" class="item">Hướng dẫn sử dụng</a>
+                    <a href="#idol-list" class="item">Danh sách idol</a>
+                    <a href="#review" class="item">Đánh giá</a>
+                    <a href="#about" class="item">Về chúng tôi</a>
+                    <a href="#discuss" class="item">Bình luận</a>
                 </div>
             </div>
 
@@ -59,7 +61,7 @@
                 </div>
             </div>
 
-            <div class="ui container">
+            <div id="top" class="ui container">
                 <div class="application">
                     <div class="ui form">
                         <div class="inline fields">
@@ -103,21 +105,72 @@
                     </div>
                 </div>
 
-                <h2 class="ui horizontal header divider">
+                <h2 id="guide" class="section ui horizontal header divider">
                     Hướng dẫn sử dụng
                 </h2>
 
                 <div>Hướng dẫn. Có thể thử dán một số link ảnh dưới đây.
 
-<h5>Máy nhận dạng với độ chính xác vào khoảng 70-80%. Hiện tại, cơ sở dữ liệu chỉ bao gồm top 500 idols. Sẽ được cập nhật mỗi tháng.</h5>
-<h5>Không nên thử up ảnh người yêu v...v nếu không muốn hậu quả xảy ra.</h5>
+                    <h5>Máy nhận dạng với độ chính xác vào khoảng 70-80%. Hiện tại, cơ sở dữ liệu chỉ bao gồm top 500 idols. Sẽ được cập nhật mỗi tháng.</h5>
+                    <h5>Không nên thử up ảnh người yêu v...v nếu không muốn hậu quả xảy ra.</h5>
                 </div>
 
-                <h2 class="ui horizontal header divider">
+                <h2 id="idol-list" class="section ui horizontal header divider">
+                    Danh sách idol
+                </h2>
+                <div>
+                    <p>Hệ thống bao gồm hình ảnh của 2000 idol nổi nhất, trong đó có thể nhận diện được
+                        <b>500/2000</b>
+                    </p>
+                    <p>Vẫn đang tiếp tục học thêm.</p>
+
+                    <div class="ui fluid icon input">
+                        <input type="text" ng-model="idolSearch" placeholder="Tìm idol">
+                        <i class="search icon"></i>
+                    </div>
+                    <table class="ui striped compact single table">
+                        <thead>
+                            <tr>
+                                <th>ID</td>
+                                <th>Tên</td>
+                                <th>Link</td>
+                                <th>Trạng thái</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="idol in idols | filter: idolSearch | itemsPerPage: 10">
+                                <td>{{idol.ID}}</td>
+                                <td>{{idol.Name}}</td>
+                                <td>
+                                    <a target="blank" ng-href="http://www.jjgirls.com{{idol.Link}}">http://www.jjgirls.com{{idol.Link}}</a>
+                                </td>
+                                <td>
+                                    <span ng-if="idol.ID <= 500">
+                                        <i class="green check circle icon"></i>
+                                        Có thể nhận diện</span>
+                                    <span ng-if="idol.ID > 500">
+                                        <i class="red remove circle icon"></i>
+                                        Chưa thể nhận diện</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="4">
+                                    <dir-pagination-controls></dir-pagination-controls>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <h2 id="review" class="section ui horizontal header divider">
                     Đánh giá
                 </h2>
 
-                <div>Đánh giá khách quan</div>
+                <div>
+                    Đánh giá khách quan
+                </div>
 
                 <div class="ui vertical stripe quote segment">
                     <div class="ui equal width stackable internally celled grid">
@@ -147,7 +200,7 @@
                     </div>
                 </div>
 
-                <h2 class="ui horizontal header divider">
+                <h2 id="about" class="section ui horizontal header divider">
                     Về chúng tôi
                 </h2>
                 <div class="ui vertical stripe segment">
@@ -168,7 +221,7 @@
                     </div>
                 </div>
 
-                <h2 class="ui horizontal header divider">
+                <h2 id="discuss" class="section ui horizontal header divider">
                     Bình luận
                 </h2>
 
@@ -194,14 +247,21 @@
         </body>
 
         <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+            (function(i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function() {
+                    (i[r].q = i[r].q || []).push(arguments)
+                },
+                i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-          ga('create', 'UA-88777570-1', 'auto');
-          ga('send', 'pageview');
-
+            ga('create', 'UA-88777570-1', 'auto');
+            ga('send', 'pageview');
         </script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -215,7 +275,23 @@
                 $('.ui.radio.checkbox').checkbox();
                 // create sidebar and attach to menu open
                 $('.ui.sidebar').sidebar('attach events', '.toc.item');
+
+                $(document).on('click', 'a', function(event) {
+                    event.preventDefault();
+
+                    $('html, body').animate({
+                        scrollTop: $($.attr(this, 'href')).offset().top - 80
+                    }, 500);
+                });
+
+                $('.section').visibility({
+                  onTopVisible: function(calculations) {
+                        // top is on screen
+                        console.log(calculations);
+                    }
+                });
             });
         </script>
+        <script src="/js/dirPagination.js"></script>
         <script src="/js/main.js"></script>
     </html>
