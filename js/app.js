@@ -170,10 +170,12 @@ app.controller('mainCtrl', [
             imageLink: ""
         };
         $scope.isLoading = false;
+        $scope.testImages = ['http://res.cloudinary.com/hoangcloud/image/upload/v1481518034/jav-idols/u6dmau0dvs0bbzohgh8f.jpg', 'http://res.cloudinary.com/hoangcloud/image/upload/v1481515410/jav-idols/olzmtmys7prvep3z0ckf.jpg', 'http://res.cloudinary.com/hoangcloud/image/upload/v1481451527/jav-idols/dhsxrhbvsayxz57smane.jpg', 'http://wallpaperim.net/upload/2014/10/12/20141012102829-81eb8fcc.jpg'];
+
+        $scope.backends = ['cognitive.jpg', 'azure.jpg', 'netcore.png', 'amazons3.png', 'ec2.png', 'cloudinary.png', 'redis.jpg'];
+        $scope.frontends = ['github.jpg', 'semantic.png', 'angular.png'];
+
         var ref = firebase.database().ref().child("latest");
-
-        //$scope.latestEntries = $firebaseArray(ref);
-
         // No order by desceding, render item be descending order then
         var query = ref.orderByChild("timestamp").limitToLast(8);
         $scope.latestEntries = $firebaseArray(query);

@@ -53,8 +53,13 @@
 }
 
 .idol-thumbnail {
-    height: 120px;
-    overflow: hidden;
+  height: 120px;
+  overflow: hidden;
+}
+
+.test-thumbnail {
+  max-height: 150px;
+  overflow: hidden;
 }
 
 
