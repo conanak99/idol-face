@@ -149,6 +149,11 @@ app.factory('recognizeService', [
                 });
             }, (error) => {
                 toastr.error('Có lỗi xuất hiện');
+
+                if (error.status == 403) {
+                  toastr.error('Server hiện đang quá tải, vui lòng thử lại sau 30s.');
+                }
+
                 var errorInfo = error.data.error;
                 if (errorInfo.code == 'InvalidURL') {
                     toastr.error('Link ảnh bị lỗi. Vui lòng dùng link khác.');
