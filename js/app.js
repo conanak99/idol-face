@@ -25,15 +25,14 @@ app.config([
 ]);
 
 app.filter('dateFromNow', function() {
-  return function(date) {
-    if(!moment) {
-      console.log('Error: momentJS is not loaded as a global');
-      return '!momentJS';
+    return function(date) {
+        if (!moment) {
+            console.log('Error: momentJS is not loaded as a global');
+            return '!momentJS';
+        }
+        return moment(date).fromNow();
     }
-    return moment(date).fromNow();
-  }
 });
-
 
 app.config([
     'paginationTemplateProvider',
@@ -149,8 +148,11 @@ app.factory('recognizeService', [
                     return faces;
                 });
             }, (error) => {
-              toastr.error('Lỗi cbnr');
-              console.log(error.data);
+                toastr.error('Có lỗi xuất hiện');
+                var errorInfo = error.data.error;
+                if (errorInfo.code == 'InvalidURL') {
+                    toastr.error('Link ảnh bị lỗi. Vui lòng dùng link khác.');
+                }
             });
         }
     })
@@ -190,16 +192,8 @@ app.controller('mainCtrl', [
         });
 
         $scope.recognize = () => {
-            // Check link valid http
-            if ($scope.input.source == 'link') {
-              var regex = /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
-              if (!regex.test($scope.input.imageLink)) {
-                toastr.error('URL không hợp lệ');
+            if (!isImageValid() || $scope.isLoading)
                 return;
-              }
-            }
-
-            if ($scope.isLoading) return;
 
             $scope.isLoading = true;
             if ($scope.input.source == 'link') {
@@ -226,13 +220,22 @@ app.controller('mainCtrl', [
                     idols: result.map(face => face.candidate.name).join(', ')
                 });
             }
-
         }
 
-        function displayError(errors) {
-            toastr.error('Lỗi cbnr');
-            $scope.btnDisable = false;
-            console.log(errors);
+        function isImageValid() {
+            if ($scope.input.source == 'link') {
+                var regex = /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+                if (!regex.test($scope.input.imageLink)) {
+                    toastr.error('URL không hợp lệ');
+                    return false;
+                }
+            } else {
+                if ($scope.input.imageLink.indexOf('data:image') == -1) {
+                    toastr.error('File không hợp lệ');
+                    return false;
+                }
+            }
+            return true;
         }
     }
 ]);

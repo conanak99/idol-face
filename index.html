@@ -62,7 +62,7 @@
             </div>
 
             <div id="top" class="ui container">
-                <div class="application">
+                <div class="application" ng-cloak>
                     <div class="ui form">
                         <div class="inline fields">
                             <label for="fruit">Dán link vào đây hoặc upload ảnh</label>
@@ -91,7 +91,7 @@
                                         Tìm idol</span>
                                     <span ng-if="isLoading">
                                         <i class="spinner loading icon"></i>
-                                        Đang tìm</span>
+                                        Đang tìm, chờ tí</span>
                                 </button>
                             </div>
                         </div>
@@ -100,19 +100,19 @@
                         <div class="source-image">
                             <img src="http://placehold.it/600x300?text=JAV+idol"
                             ng-if="!input.imageLink" class="ui"/>
-                            <img ng-src="{{input.imageLink}}" id="source-image" class="ui"/>
+                            <img ng-if="input.imageLink" ng-src="{{input.imageLink}}"
+                            id="source-image" class="ui"/>
                             <div class="idol-face" ng-style="face.face" ng-repeat="face in faces">
                                 <a target="_blank" ng-href="http://www.jjgirls.com{{face.candidate.link}}">
                                     <span ng-style="face.candidate.nameStyle" class="idol-name">{{face.candidate.name}}</span>
                                 </a>
                             </div>
                         </div>
-                        <!-- Result will be đisplay on image -->
                     </div>
 
                     <div class="ui clearfix">
                         <h3>Kết quả gần đây nhất (realtime)</h3>
-                        <div class="ui four doubling cards">
+                        <div class="ui four doubling cards" ng-cloak>
                             <div class="card" ng-repeat="entry in latestEntries | orderBy:'-' ">
                                 <a target="_blank" ng-href="{{entry.image}}" class="image entry-thumbnail">
                                     <img src="{{entry.image}}">
@@ -153,7 +153,7 @@
                         <i class="search icon"></i>
                     </div>
 
-                    <div class="idol-list ui six doubling cards">
+                    <div class="idol-list ui six doubling cards" ng-cloak>
                         <div dir-paginate="idol in idols | filter: idolSearch | itemsPerPage: 12" class="card">
                             <a ng-href="{{idol.bigThumb}}" class="image idol-thumbnail">
                                 <img src="{{idol.thumbnail}}">
@@ -190,14 +190,14 @@
                             <div class="column">
                                 <h3>"Thật không thể tin nổi! Ứng dụng nhỏ, nhưng là một bước tiến lớn về công nghệ."</h3>
                                 <p><img src="/images/quang.jpg" class="ui avatar image">
-                                    <b>Nguyễn Tử Quảng</b>
-                                    Giám đốc BKAV
+                                    <b>Nổ Văn Quảng</b>
+                                    Giám đốc VAV, JAV và BKAV
                                 </p>
                             </div>
                             <div class="column">
                                 <h3>"Có nằm mơ tôi cũng không ngờ công nghệ của Microsoft lại được áp dụng một cách sáng tạo như thế"</h3>
                                 <p><img src="/images/bill.jpg" class="ui avatar image">
-                                    <b>Bill Gates</b>
+                                    <b>Biu Gết</b>
                                     Sáng lập Microsoft
                                 </p>
                             </div>

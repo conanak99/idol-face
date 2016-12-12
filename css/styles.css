@@ -2,6 +2,10 @@
     margin-top: 3em;
 }
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
 .logo {
     margin-right: 1em;
 }
