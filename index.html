@@ -81,20 +81,26 @@
                         </div>
 
                         <div class="field">
-                            <div class="ui action input">
+                            <div ng-class="{loading: isLoading}" class="ui action input">
                                 <input type="text" ng-if="input.source == 'link'" ng-model="input.imageLink" placeholder="Link ảnh"/>
                                 <input type="file" fileread="input.imageLink" ng-if="input.source == 'file'" placeholder="Upload ảnh"/>
-                                <button ng-disabled="btnDisable && !input.imageLink" ng-click="recognize()" class="ui icon primary button">
-                                    <i class="search icon"></i>
-                                    Tìm idol
+                                <button ng-disabled="isLoading || !input.imageLink" ng-click="recognize()" class="ui icon primary button">
+
+                                    <span ng-if="!isLoading">
+                                        <i class="search icon"></i>
+                                        Tìm idol</span>
+                                    <span ng-if="isLoading">
+                                        <i class="spinner loading icon"></i>
+                                        Đang tìm</span>
                                 </button>
                             </div>
                         </div>
                     </div>
                     <div class="ui center aligned basic segment">
                         <div class="source-image">
-
-                            <img ng-src="{{input.imageLink}}" id="source-image" class="ui responsive image"/>
+                            <img src="http://placehold.it/600x300?text=JAV+idol"
+                            ng-if="!input.imageLink" class="ui"/>
+                            <img ng-src="{{input.imageLink}}" id="source-image" class="ui"/>
                             <div class="idol-face" ng-style="face.face" ng-repeat="face in faces">
                                 <a target="_blank" ng-href="http://www.jjgirls.com{{face.candidate.link}}">
                                     <span ng-style="face.candidate.nameStyle" class="idol-name">{{face.candidate.name}}</span>
@@ -102,6 +108,23 @@
                             </div>
                         </div>
                         <!-- Result will be đisplay on image -->
+                    </div>
+
+                    <div class="ui clearfix">
+                        <h3>Kết quả gần đây nhất (realtime)</h3>
+                        <div class="ui four doubling cards">
+                            <div class="card" ng-repeat="entry in latestEntries | orderBy:'-' ">
+                                <a target="_blank" ng-href="{{entry.image}}" class="image entry-thumbnail">
+                                    <img src="{{entry.image}}">
+                                </a>
+                                <div class="content">
+                                    <div class="header">{{entry.idols}}</div>
+                                    <div class="meta">
+                                        {{entry.time | dateFromNow}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -113,6 +136,7 @@
 
                     <h5>Máy nhận dạng với độ chính xác vào khoảng 70-80%. Hiện tại, cơ sở dữ liệu chỉ bao gồm top 500 idols. Sẽ được cập nhật mỗi tháng.</h5>
                     <h5>Không nên thử up ảnh người yêu v...v nếu không muốn hậu quả xảy ra.</h5>
+                    <p>Nếu thử không ra kết quả đúng, hãy tìm idol trong danh sách phía dưới để xem hệ thống có thể nhận diện được chưa nhé</p>
                 </div>
 
                 <h2 id="idol-list" class="section ui horizontal header divider">
@@ -131,9 +155,9 @@
 
                     <div class="idol-list ui six doubling cards">
                         <div dir-paginate="idol in idols | filter: idolSearch | itemsPerPage: 12" class="card">
-                            <div class="image idol-thumbnail">
+                            <a ng-href="{{idol.bigThumb}}" class="image idol-thumbnail">
                                 <img src="{{idol.thumbnail}}">
-                            </div>
+                            </a>
                             <div class="content">
                                 <a target="blank" ng-href="{{idol.link}}" class="header">{{idol.name}}</a>
                                 <div class="meta">
@@ -195,10 +219,10 @@
                     <div class="ui text container">
                         <h3 class="ui header">Breaking The Grid, Grabs Your Attention</h3>
                         <p>
-                            Back end: Microsoft Cognitive Service, .NET Core, Azure Funtion, Cloudinary, Amazon EC2, Redis Cache,
+                            Back end: Microsoft Cognitive Service, .NET Core, Azure Funtion, Cloudinary, Amazon EC2, Redis Cache, Firebase
                         </p>
                         <p>
-                            Front-end: Github Page, SemanticUI, AngularJS</p>
+                            Front-end: CDNJS, Github Page, SemanticUI, AngularJS</p>
                         <a class="ui large button">Read More</a>
                         <h4 class="ui horizontal header divider">
                             <a href="#">Case Studies</a>
@@ -258,8 +282,24 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.tpls.min.js"></script>
-        <script src="/js/libs/dirPagination.js"></script>
+        <!-- Firebase -->
+        <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
+        <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
 
+        <script type="text/javascript">
+            var config = {
+                apiKey: "AIzaSyDNvsfwFt7W-G9QahIUdXoE0wcHFuyrKvA",
+                authDomain: "javidolface.firebaseapp.com",
+                databaseURL: "https://javidolface.firebaseio.com",
+                storageBucket: "javidolface.appspot.com",
+                messagingSenderId: "680094238689"
+            };
+            firebase.initializeApp(config);
+        </script>
+
+        <script src="/js/libs/dirPagination.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment-with-locales.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/vi.js"></script>
         <script src="/js/main.js"></script>
         <script src="/js/app.js"></script>
 

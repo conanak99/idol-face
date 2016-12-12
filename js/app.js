@@ -1,64 +1,75 @@
-const app = angular.module('jav-idol-face',
-['angular-loading-bar', 'angularUtils.directives.dirPagination', 'toastr']);
+const app = angular.module('jav-idol-face', ['angular-loading-bar', 'angularUtils.directives.dirPagination', 'firebase', 'toastr']);
 
 app.directive("fileread", [() => ({
-    scope: {
-        fileread: "="
-    },
+        scope: {
+            fileread: "="
+        },
 
-    link(scope, element, attributes) {
-        element.bind("change", changeEvent => {
-            const reader = new FileReader();
-            reader.onload = loadEvent => {
-                scope.$apply(() => {
-                    scope.fileread = loadEvent.target.result;
-                });
-            }
-            reader.readAsDataURL(changeEvent.target.files[0]);
-        });
-    }
-})
-]);
+        link(scope, element, attributes) {
+            element.bind("change", changeEvent => {
+                const reader = new FileReader();
+                reader.onload = loadEvent => {
+                    scope.$apply(() => {
+                        scope.fileread = loadEvent.target.result;
+                    });
+                }
+                reader.readAsDataURL(changeEvent.target.files[0]);
+            });
+        }
+    })]);
 
 app.config([
-    'toastrConfig',
-    toastrConfig => {
+    'toastrConfig', toastrConfig => {
         angular.extend(toastrConfig, {timeOut: 5000});
     }
 ]);
 
-app.config(['paginationTemplateProvider',function(paginationTemplateProvider) {
-    paginationTemplateProvider.setPath('/js/templates/dirPagination.tpl.html');
-}]);
-
-app.factory('idolService',['$http', function($http) {
-
-  function nameToLink(name) {
-    // Generate thumbnail link based on name
-    var lowerCaseName = name.trim().split(' ')
-    .map(n => n.toLowerCase()).join('-');
-    return `http://www.japanesebeauties.net/japanese/${lowerCaseName}/1/cute-${lowerCaseName}-1.jpg`;
+app.filter('dateFromNow', function() {
+  return function(date) {
+    if(!moment) {
+      console.log('Error: momentJS is not loaded as a global');
+      return '!momentJS';
+    }
+    return moment(date).fromNow();
   }
+});
 
-  return {
-    loadIdols() {
-      return $http({
-        method: 'GET',
-        url: 'https://s3-ap-southeast-1.amazonaws.com/linhtinh-hoangph/topIdols.json'
-      }).then(result => result.data.map(idol => {
+
+app.config([
+    'paginationTemplateProvider',
+    function(paginationTemplateProvider) {
+        paginationTemplateProvider.setPath('/js/templates/dirPagination.tpl.html');
+    }
+]);
+
+app.factory('idolService', [
+    '$http',
+    function($http) {
+
+        function nameToLink(name) {
+            // Generate thumbnail link based on name
+            var lowerCaseName = name.trim().split(' ').map(n => n.toLowerCase()).join('-');
+            return `http://www.japanesebeauties.net/japanese/${lowerCaseName}/1/cute-${lowerCaseName}-1.jpg`;
+        }
+
         return {
-          id: idol.ID,
-          name: idol.Name,
-          link: `http://www.jjgirls.com${idol.Link}`,
-          thumbnail : nameToLink(idol.Name),
-          bigThumb: nameToLink(idol.Name).replace('cute-', '')
-        };
-      }));
-    },
-  }
-}]);
+            loadIdols() {
+                return $http({method: 'GET', url: 'https://s3-ap-southeast-1.amazonaws.com/linhtinh-hoangph/topIdols.json'}).then(result => result.data.map(idol => {
+                    return {
+                        id: idol.ID,
+                        name: idol.Name,
+                        link: `http://www.jjgirls.com${idol.Link}`,
+                        thumbnail: nameToLink(idol.Name),
+                        bigThumb: nameToLink(idol.Name).replace('cute-', '')
+                    };
+                }));
+            }
+        }
+    }
+]);
 
-app.factory('recognizeService', ['$q',
+app.factory('recognizeService', [
+    '$q',
     '$http',
     'toastr',
     ($q, $http, toastr) => ({
@@ -100,44 +111,46 @@ app.factory('recognizeService', ['$q',
                     url: imgLink
                 }
             }).then((result) => {
-                return this.getImageSize(imgLink)
-                .then(size => {
+                return this.getImageSize(imgLink).then(size => {
                     toastr.success('Xong rồi ahihi :">"');
                     const originalWidth = size.width;
                     const currentWidth = document.querySelector('#source-image').clientWidth;
                     const ratio = currentWidth / originalWidth;
                     const faces = result.data.map(r => {
-                        const face = r.Face.FaceRectangle;
+                        const face = r.face.faceRectangle;
                         const faceStyle = {
-                            width: `${face.Width * ratio}px`,
-                            height: `${face.Height * ratio}px`,
-                            left: `${face.Left * ratio}px`,
-                            top: `${face.Top * ratio}px`
+                            width: `${face.width * ratio}px`,
+                            height: `${face.height * ratio}px`,
+                            left: `${face.left * ratio}px`,
+                            top: `${face.top * ratio}px`
                         };
 
-                        let candidate = {};
-                        if (r.Candidates.length > 0) {
-                            const firstCandidate = r.Candidates[0];
-                            let fontSize = (face.Width * ratio / 6);
-                            let minFontSize = 15;
-                            fontSize = Math.max(fontSize, minFontSize);
+                        let fontSize = (face.width * ratio / 6);
+                        let minFontSize = 15;
+                        fontSize = Math.max(fontSize, minFontSize);
 
-                            candidate = {
-                                name: firstCandidate.Idol.Name,
-                                link: firstCandidate.Idol.Link,
-                                nameStyle: {
-                                    width: faceStyle.width,
-                                    'font-size': `${fontSize}px`,
-                                    'line-height': `${fontSize - 2}px`,
-                                    bottom: `-${fontSize}px`,
-                                }
-                            };
+                        let candidate = {
+                            name: 'Unknown',
+                            nameStyle: {
+                                width: faceStyle.width,
+                                'font-size': `${fontSize}px`,
+                                'line-height': `${fontSize - 2}px`,
+                                bottom: `-${fontSize}px`
+                            }
+                        };
+                        if (r.candidates.length > 0) {
+                            const firstCandidate = r.candidates[0].idol;
+                            candidate.name = firstCandidate.name;
+                            candidate.link = firstCandidate.Link;
                         };
                         return {face: faceStyle, candidate};
                     });
 
                     return faces;
                 });
+            }, (error) => {
+              toastr.error('Lỗi cbnr');
+              console.log(error.data);
             });
         }
     })
@@ -148,11 +161,20 @@ app.controller('mainCtrl', [
     'recognizeService',
     'idolService',
     'toastr',
-    ($scope, recognizeService, idolService, toastr) => {
+    '$firebaseArray',
+    ($scope, recognizeService, idolService, toastr, $firebaseArray) => {
         $scope.input = {
             source: 'link',
             imageLink: ""
         };
+        $scope.isLoading = false;
+        var ref = firebase.database().ref().child("latest");
+
+        //$scope.latestEntries = $firebaseArray(ref);
+
+        // No order by desceding, render item be descending order then
+        var query = ref.orderByChild("timestamp").limitToLast(8);
+        $scope.latestEntries = $firebaseArray(query);
 
         idolService.loadIdols().then(result => {
             $scope.idols = result;
@@ -168,23 +190,43 @@ app.controller('mainCtrl', [
         });
 
         $scope.recognize = () => {
-            if ($scope.btnDisable) return;
+            // Check link valid http
+            if ($scope.input.source == 'link') {
+              var regex = /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+              if (!regex.test($scope.input.imageLink)) {
+                toastr.error('URL không hợp lệ');
+                return;
+              }
+            }
 
-            $scope.btnDisable = true;
+            if ($scope.isLoading) return;
+
+            $scope.isLoading = true;
             if ($scope.input.source == 'link') {
                 recognizeService.recognizeImage($scope.input.imageLink).then(displayResult);
             } else {
                 recognizeService.uploadImage($scope.input.imageLink).then(result => {
                     const url = result.data.url;
+                    $scope.input.imageLink = url;
                     return url;
-                }).then(recognizeService.recognizeImage.bind(recognizeService))
-                .then(displayResult);
+                }).then(recognizeService.recognizeImage.bind(recognizeService)).then(displayResult);
             }
         }
 
         function displayResult(result) {
-            $scope.btnDisable = false;
+            $scope.isLoading = false;
             $scope.faces = result;
+            if ($scope.faces.length == 0) {
+                toastr.warning('Không nhận diện được uhuhu T.T');
+            } else {
+
+                $scope.latestEntries.$add({
+                    image: $scope.input.imageLink,
+                    time: moment().format(),
+                    idols: result.map(face => face.candidate.name).join(', ')
+                });
+            }
+
         }
 
         function displayError(errors) {
