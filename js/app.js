@@ -158,6 +158,7 @@ app.factory('recognizeService', [
                 if (errorInfo.code == 'InvalidURL') {
                     toastr.error('Link ảnh bị lỗi. Vui lòng dùng link khác.');
                 }
+                return $q.reject(error);
             });
         }
     })
@@ -185,6 +186,8 @@ app.controller('mainCtrl', [
         var query = ref.orderByChild("timestamp").limitToLast(8);
         $scope.latestEntries = $firebaseArray(query);
 
+        $scope.totalEntries = $firebaseArray(ref);
+
         idolService.loadIdols().then(result => {
             $scope.idols = result;
         });
@@ -204,13 +207,15 @@ app.controller('mainCtrl', [
 
             $scope.isLoading = true;
             if ($scope.input.source == 'link') {
-                recognizeService.recognizeImage($scope.input.imageLink).then(displayResult);
+                recognizeService.recognizeImage($scope.input.imageLink)
+                .then(displayResult).catch(displayError);
             } else {
                 recognizeService.uploadImage($scope.input.imageLink).then(result => {
                     const url = result.data.url;
                     $scope.input.imageLink = url;
                     return url;
-                }).then(recognizeService.recognizeImage.bind(recognizeService)).then(displayResult);
+                }).then(recognizeService.recognizeImage.bind(recognizeService))
+                .then(displayResult).catch(displayError);
             }
         }
 
@@ -227,6 +232,11 @@ app.controller('mainCtrl', [
                     idols: result.map(face => face.candidate.name).join(', ')
                 });
             }
+        }
+
+        function displayError(error) {
+          console.log(error);
+          $scope.isLoading = false;
         }
 
         function isImageValid() {

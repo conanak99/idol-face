@@ -62,6 +62,9 @@
   overflow: hidden;
 }
 
+.idol-statistics {
+  justify-content: center;
+}
 
 .ui.vertical.stripe {
     padding: 8em 0em;
