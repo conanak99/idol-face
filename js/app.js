@@ -140,7 +140,7 @@ app.factory('recognizeService', [
                         if (r.candidates.length > 0) {
                             const firstCandidate = r.candidates[0].idol;
                             candidate.name = firstCandidate.name;
-                            candidate.link = firstCandidate.Link;
+                            candidate.link = firstCandidate.link;
                         };
                         return {face: faceStyle, candidate};
                     });
