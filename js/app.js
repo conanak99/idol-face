@@ -96,15 +96,32 @@ app.factory('recognizeService', [
             });
         },
 
+        checkAdultContent(imgLink) {
+          const key = 'k7dgy05qyfs8uwjvjrjdobt9x17c3yu0gteqyd0qqkomeu3di60kxsrkutl9yge0s2ixiil766r';
+          const url = 'https://jav-recognize.azurewebsites.net/api/CheckAdult';
+
+          return $http({
+              method: 'POST',
+              url,
+              headers: {
+                  'x-functions-key': key
+              },
+              data: {
+                  url: imgLink
+              }
+          });
+        },
+
         recognizeImage(imgLink) {
             toastr.info("Đang nhận diện, có thể hơi lâu, vui lòng chờ");
+            const key = 'k7dgy05qyfs8uwjvjrjdobt9x17c3yu0gteqyd0qqkomeu3di60kxsrkutl9yge0s2ixiil766r';
             const url = 'https://jav-recognize.azurewebsites.net/api/HttpTriggerCSharp1';
 
             return $http({
                 method: 'POST',
                 url,
                 headers: {
-                    'x-functions-key': 'k7dgy05qyfs8uwjvjrjdobt9x17c3yu0gteqyd0qqkomeu3di60kxsrkutl9yge0s2ixiil766r'
+                    'x-functions-key': key
                 },
                 data: {
                     url: imgLink
@@ -186,8 +203,9 @@ app.controller('mainCtrl', [
             'netcore.png',
             'amazons3.png',
             'ec2.png',
-            'cloudinary.png',
-            'redis.jpg'
+            'redis.jpg',
+            'firebase.jpg',
+            'cloudinary.png'
         ];
         $scope.frontends = ['github.jpg', 'semantic.png', 'angular.png'];
 
@@ -234,14 +252,25 @@ app.controller('mainCtrl', [
             if ($scope.faces.length == 0) {
                 toastr.warning('Không nhận diện được uhuhu T.T');
             } else {
-
                 $scope.oldImgLink = $scope.input.imageLink;
-                // Check latest entries
-                $scope.latestEntries.$add({
-                    image: $scope.input.imageLink,
-                    time: moment().format(),
-                    idols: result.map(face => face.candidate.name).join(', ')
-                });
+                if ($scope.faces[0].candidate.name !== 'Unknown') {
+                    // Check latest entries
+                    debugger;
+                    recognizeService.checkAdultContent($scope.input.imageLink)
+                    .then(checkResult => {
+                      var isAdultContent = checkResult.data.adult.isAdultContent;
+                      if (!isAdultContent) {
+                        $scope.latestEntries.$add({
+                            image: $scope.input.imageLink,
+                            time: moment().format(),
+                            idols: result.map(face => face.candidate.name).join(', ')
+                        });
+                      } else {
+                        toastr.warning('Ảnh có nội dung nhạy cảm, không hiện trên real-time nhé!');
+                      }
+                    });
+
+                }
             }
         }
 
