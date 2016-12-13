@@ -248,14 +248,13 @@ app.controller('mainCtrl', [
 
         function displayResult(result) {
             $scope.isLoading = false;
+            $scope.oldImgLink = $scope.input.imageLink; // Prevent spam
             $scope.faces = result;
             if ($scope.faces.length == 0) {
                 toastr.warning('Không nhận diện được uhuhu T.T');
             } else {
-                $scope.oldImgLink = $scope.input.imageLink;
                 if ($scope.faces[0].candidate.name !== 'Unknown') {
                     // Check latest entries
-                    debugger;
                     recognizeService.checkAdultContent($scope.input.imageLink)
                     .then(checkResult => {
                       var isAdultContent = checkResult.data.adult.isAdultContent;
