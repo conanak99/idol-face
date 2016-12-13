@@ -151,7 +151,7 @@ app.factory('recognizeService', [
                 toastr.error('Có lỗi xuất hiện');
 
                 if (error.status == 403) {
-                  toastr.error('Server hiện đang quá tải, vui lòng thử lại sau 30s.');
+                    toastr.error('Server hiện đang quá tải, vui lòng thử lại sau 30s.');
                 }
 
                 var errorInfo = error.data.error;
@@ -175,10 +175,20 @@ app.controller('mainCtrl', [
             source: 'link',
             imageLink: ""
         };
+        $scope.oldImgLink = "";
+
         $scope.isLoading = false;
         $scope.testImages = ['http://res.cloudinary.com/hoangcloud/image/upload/v1481518034/jav-idols/u6dmau0dvs0bbzohgh8f.jpg', 'http://res.cloudinary.com/hoangcloud/image/upload/v1481515410/jav-idols/olzmtmys7prvep3z0ckf.jpg', 'http://res.cloudinary.com/hoangcloud/image/upload/v1481451527/jav-idols/dhsxrhbvsayxz57smane.jpg', 'http://wallpaperim.net/upload/2014/10/12/20141012102829-81eb8fcc.jpg'];
 
-        $scope.backends = ['cognitive.jpg', 'azure.jpg', 'netcore.png', 'amazons3.png', 'ec2.png', 'cloudinary.png', 'redis.jpg'];
+        $scope.backends = [
+            'cognitive.jpg',
+            'azure.jpg',
+            'netcore.png',
+            'amazons3.png',
+            'ec2.png',
+            'cloudinary.png',
+            'redis.jpg'
+        ];
         $scope.frontends = ['github.jpg', 'semantic.png', 'angular.png'];
 
         var ref = firebase.database().ref().child("latest");
@@ -206,16 +216,15 @@ app.controller('mainCtrl', [
                 return;
 
             $scope.isLoading = true;
+
             if ($scope.input.source == 'link') {
-                recognizeService.recognizeImage($scope.input.imageLink)
-                .then(displayResult).catch(displayError);
+                recognizeService.recognizeImage($scope.input.imageLink).then(displayResult).catch(displayError);
             } else {
                 recognizeService.uploadImage($scope.input.imageLink).then(result => {
                     const url = result.data.url;
                     $scope.input.imageLink = url;
                     return url;
-                }).then(recognizeService.recognizeImage.bind(recognizeService))
-                .then(displayResult).catch(displayError);
+                }).then(recognizeService.recognizeImage.bind(recognizeService)).then(displayResult).catch(displayError);
             }
         }
 
@@ -226,6 +235,8 @@ app.controller('mainCtrl', [
                 toastr.warning('Không nhận diện được uhuhu T.T');
             } else {
 
+                $scope.oldImgLink = $scope.input.imageLink;
+                // Check latest entries
                 $scope.latestEntries.$add({
                     image: $scope.input.imageLink,
                     time: moment().format(),
@@ -235,22 +246,25 @@ app.controller('mainCtrl', [
         }
 
         function displayError(error) {
-          console.log(error);
-          $scope.isLoading = false;
+            console.log(error);
+            $scope.isLoading = false;
         }
 
         function isImageValid() {
+
+            if ($scope.input.imageLink == $scope.oldImgLink) {
+                toastr.warning('Đổi hình khác đi ahihi :">"');
+                return false;
+            }
             if ($scope.input.source == 'link') {
                 var regex = /[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
                 if (!regex.test($scope.input.imageLink)) {
                     toastr.error('URL không hợp lệ');
                     return false;
                 }
-            } else {
-                if ($scope.input.imageLink.indexOf('data:image') == -1) {
-                    toastr.error('File không hợp lệ');
-                    return false;
-                }
+            } else if ($scope.input.imageLink.indexOf('data:image') == -1) {
+                toastr.error('File không hợp lệ');
+                return false;
             }
             return true;
         }
