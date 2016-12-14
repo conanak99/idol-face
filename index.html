@@ -184,7 +184,7 @@
 
                     <div class="idol-list ui six doubling cards" ng-cloak>
                         <div dir-paginate="idol in idols | filter: idolSearch | itemsPerPage: 12" class="card">
-                            <a ng-href="{{idol.bigThumb}}" class="image idol-thumbnail">
+                            <a target="_blank" ng-href="{{idol.bigThumb}}" class="image idol-thumbnail">
                                 <img ng-src="{{idol.thumbnail}}">
                             </a>
                             <div class="content">
