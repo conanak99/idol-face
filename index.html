@@ -101,7 +101,12 @@
                             <img src="http://placehold.it/600x300?text=JAV+idol" ng-if="!input.imageLink" class="ui"/>
                             <img ng-if="input.imageLink" ng-src="{{input.imageLink}}" id="source-image" class="ui"/>
                             <div class="idol-face" ng-style="face.face" ng-repeat="face in faces">
+<!--
                                 <a target="_blank" ng-href="http://www.jjgirls.com{{face.candidate.link}}">
+                                    <span ng-style="face.candidate.nameStyle" class="idol-name">{{face.candidate.name}}</span>
+                                </a>
+-->
+                                <a target="_blank">
                                     <span ng-style="face.candidate.nameStyle" class="idol-name">{{face.candidate.name}}</span>
                                 </a>
                             </div>
@@ -183,7 +188,8 @@
                                 <img ng-src="{{idol.thumbnail}}">
                             </a>
                             <div class="content">
-                                <a target="blank" ng-href="{{idol.link}}" class="header">{{idol.name}}</a>
+                                <!--<a target="blank" ng-href="{{idol.link}}" class="header">{{idol.name}}</a>-->
+                                <a target="blank" class="header">{{idol.name}}</a>
                                 <div class="meta">
                                     <span ng-if="idol.id <= 500">
                                         <i class="green check circle icon"></i>
