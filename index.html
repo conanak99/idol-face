@@ -56,7 +56,7 @@
                     <img width="100" src="/images/header_logo.jpg" alt="" class="ui center">
 
                     <h1 class="ui red inverted small-margin">
-                        SERVER ĐANG BẢO TRÌ VÌ ACCOUNT MICROSOFT CÓ VẤN ĐỀ, HÔM SAU CÁC BẠN QUAY LẠI NHÉ
+                        APP ĐANG BẢO TRÌ VÔ THỜI HẠN
                     </h1>
 
                     <h1 class="ui inverted small-margin">
@@ -65,31 +65,57 @@
                     <h4 class="small-margin">Công cụ giúp bạn tìm JAV idol mà không cần hóng link từ các "thánh"</h4>
                 </div>
             </div>
-
-            <div id="top" class="ui container">
-                <div class="application" ng-cloak>
-                    <div class="ui form">
-                        <div class="inline fields">
-                            <label for="fruit">Dán link vào đây hoặc upload ảnh</label>
-                            <div class="field" ng-click="input.source = 'link'">
-                                <div class="ui radio checkbox">
-                                    <input type="radio" name="source" ng-model="input.source" value="link" checked="" tabindex="0" class="hidden">
-                                    <label for="link">Dán link</label>
+<br>
+            <div class="ui text container">
+                <h2 class="ui red header">VỀ VIỆC TOOL NHẬN DIỆN IDOL TẠM NGƯNG HOAT ĐỘNG</h2>
+                <img src="/images/notice.jpg" class="ui image">
+                <br>
+                <p>
+                    Khi luyện chế món thần khí "Kính Chiếu Yêu", nhìn mặt đoán tên ma nữ Nhật Bổn này, tại hạ đã áp dụng Vô Thai Kiếm (Serverless Architecture). Theo lý thuyết, kiến trúc này có thế chịu tải từ hàng triệu truy cập.
+                </p>
+                <p>
+                    Ngờ đâu, tiếng lành đồn xa. Khắp nơi giang hồ đồn đại về món bảo bối Kính Chiếu Yêu có thể nhìn mặt điểm tên. Nhân sĩ võ lâm từ Launch, Beat, Ngưng Làm Bạn náo nức thử món bảo bối nọ.
+                </p>
+                <p>
+                    Vốn dĩ tự ngạo, tại hạ bàng quan toạ sơn ngắm dân tình sử dụng, vừa nhìn vừa vuốt râu gật gù: Lần nay quả là ta đã tạo phúc cho bá tánh. Ngờ đâu, mưu sự tại nhân, thành sự tại thiên, người tính không bằng trời tính. Bọn tư bản Microsoft tính tiền
+                    theo lượng truy cập, số lượng truy cập đột biến làm bay sạch vài nghìn kim nguyên bảo trong tài khoản làm tại hạ không kịp trở tay.
+                </p>
+                <p>
+                    Đến lúc tại hạ định thần lại thì ôi thôi, sự đã rồi, hết Kim Nguyên Bảo thì kính chiếu yêu lấy gì mà họat động. Tôn chỉ sống của tại hạ là: đã không làm thì thôi, đã làm phải làm free cho bá tánh. Vốn định ngửa tay xin donate tài trợ, xong vì tự thấy
+                    mình không đủ độ đẹp trai và mặt dày như vị thiếu hiệp nào đó, nên đành ngậm ngùi thở dài.
+                </p>
+                <p>
+                    Vốn dĩ, mục đích của tại hạ khi luyện chế tool này là để rèn luyện trình độ, thử nghiệm võ công, đồng thời cũng thử xem công nghệ đã có thể nhận diện được mặt mũi bọn yêu nữ Nhật hay không. Người đời có câu: Thỏ khôn chết, chó săn bị mổ thịt; chim
+                    bay cao chết, cung tốt vất bỏ; nước địch phá xong, mưu thần bị giết. Nay mục đích đã đạt thành, thiết nghĩ Kính Chiếu Yêu cũng không cần dùng nữa.
+                </p>
+                <p>
+                    Sau tại hạ, có thể sẽ có nhiều vị đại hiệp học rộng tài cao, lắm tài thừa đức ra tay luyện chế kính chiếu yêu bản mới, xịn hơn tốt hơn, tạo phúc cho muôn dân. Xin hẹn ngày tái ngộ.
+                </div>
+<br>
+                <div id="top" class="ui container">
+                    <div class="application" ng-cloak>
+                        <div class="ui form">
+                            <div class="inline fields">
+                                <label for="fruit">Dán link vào đây hoặc upload ảnh</label>
+                                <div class="field" ng-click="input.source = 'link'">
+                                    <div class="ui radio checkbox">
+                                        <input type="radio" name="source" ng-model="input.source" value="link" checked="" tabindex="0" class="hidden">
+                                        <label for="link">Dán link</label>
+                                    </div>
+                                </div>
+                                <div class="field" ng-click="input.source = 'file'">
+                                    <div class="ui radio checkbox">
+                                        <input type="radio" name="fruit" ng-model="input.source" value="file" tabindex="0" class="hidden">
+                                        <label for="file">Upload ảnh</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="field" ng-click="input.source = 'file'">
-                                <div class="ui radio checkbox">
-                                    <input type="radio" name="fruit" ng-model="input.source" value="file" tabindex="0" class="hidden">
-                                    <label for="file">Upload ảnh</label>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="field">
-                            <div ng-class="{loading: isLoading}" class="ui action input">
-                                <input type="text" ng-if="input.source == 'link'" ng-model="input.imageLink" placeholder="Link ảnh"/>
-                                <input type="file" fileread="input.imageLink" ng-if="input.source == 'file'" placeholder="Upload ảnh"/>
-  <!--
+                            <div class="field">
+                                <div ng-class="{loading: isLoading}" class="ui action input">
+                                    <input type="text" ng-if="input.source == 'link'" ng-model="input.imageLink" placeholder="Link ảnh"/>
+                                    <input type="file" fileread="input.imageLink" ng-if="input.source == 'file'" placeholder="Upload ảnh"/>
+                                    <!--
                                 <button ng-disabled="isLoading || !input.imageLink" ng-click="recognize()" class="ui icon primary button">
 
                                     <span ng-if="!isLoading">
@@ -100,37 +126,249 @@
                                         Đang tìm, chờ tí</span>
                                 </button>
                                 -->
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="ui center aligned basic segment">
-                        <div class="source-image">
-                            <img src="http://placehold.it/600x300?text=JAV+idol" ng-if="!input.imageLink" class="ui"/>
-                            <img ng-if="input.imageLink" ng-src="{{input.imageLink}}" id="source-image" class="ui"/>
-                            <div class="idol-face" ng-style="face.face" ng-repeat="face in faces">
-<!--
+                        <div class="ui center aligned basic segment">
+                            <div class="source-image">
+                                <img src="http://placehold.it/600x300?text=JAV+idol" ng-if="!input.imageLink" class="ui"/>
+                                <img ng-if="input.imageLink" ng-src="{{input.imageLink}}" id="source-image" class="ui"/>
+                                <div class="idol-face" ng-style="face.face" ng-repeat="face in faces">
+                                    <!--
                                 <a target="_blank" ng-href="http://www.jjgirls.com{{face.candidate.link}}">
                                     <span ng-style="face.candidate.nameStyle" class="idol-name">{{face.candidate.name}}</span>
                                 </a>
 -->
-                                <a target="_blank">
-                                    <span ng-style="face.candidate.nameStyle" class="idol-name">{{face.candidate.name}}</span>
-                                </a>
+                                    <a target="_blank">
+                                        <span ng-style="face.candidate.nameStyle" class="idol-name">{{face.candidate.name}}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ui clearfix">
+                            <h3>Kết quả gần đây nhất (realtime, lọc ảnh 18+)</h3>
+                            <div class="ui four doubling cards" ng-cloak>
+                                <div class="card" ng-repeat="entry in latestEntries | orderBy:'-' ">
+                                    <a target="_blank" ng-href="{{entry.image}}" class="image entry-thumbnail">
+                                        <img ng-src="{{entry.image}}">
+                                    </a>
+                                    <div class="content">
+                                        <div class="header">{{entry.idols}}</div>
+                                        <div class="meta">
+                                            {{entry.time | dateFromNow}}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="ui clearfix">
-                        <h3>Kết quả gần đây nhất (realtime, lọc ảnh 18+)</h3>
-                        <div class="ui four doubling cards" ng-cloak>
-                            <div class="card" ng-repeat="entry in latestEntries | orderBy:'-' ">
-                                <a target="_blank" ng-href="{{entry.image}}" class="image entry-thumbnail">
-                                    <img ng-src="{{entry.image}}">
+                    <h2 id="guide" class="section ui horizontal header divider">
+                        Hướng dẫn sử dụng
+                    </h2>
+
+                    <div class="ui text container">
+
+                        <p>Cách sử dụng cực kì đơn giản</p>
+                        <p>
+                            <b>Bước 1:</b>
+                            Click chuột phải vào tấm hình bạn muốn tìm, chọn "Copy Image Address"</p>
+                        <p>
+                            <b>Bước 2:</b>
+                            Paste vào textbox và bấm "Nhận diện idol". Nếu ảnh nằm trong máy, bạn nhấp vào "Upload ảnh", chọn ảnh và bấm "Nhận diện Idol"</p>
+                        <p>
+
+                            <img src="/images/guide.png" class="ui image">
+                            <h3 class="section ui horizontal header divider">
+                                Về ứng dụng
+                            </h3>
+                            <p>
+                                <b>Hiện tại ứng dụng chỉ hoạt động cho Chrome, Android và iOS 9 trở lên</b>
+                            </p>
+                            <b>Nhận diện idol</b>
+                            có thể hỗ trợ bạn tìm tên và link của hầu hết các JAV Idol nổi tiếng thông qua khuôn mặt.</p>
+                        <p>Máy nhận dạng với độ chính xác vào khoảng
+                            <b>60 đến 80%</b>, ảnh một hay nhiều người cũng chơi tuốt.
+                        </p>
+                        <p>Hiện tại, do dữ liệu còn ít nên hệ thống chỉ có thể nhận diện được khoảng 500 idol nổi tiếng. Dữ liệu này sẽ được cập nhật mỗi tháng.</p>
+                        <p>Nếu thử không ra kết quả đúng, hãy tìm idol trong danh sách phía dưới để xem hệ thống có thể nhận diện được chưa nhé.</p>
+                        <p>
+                            <b>Lưu ý:
+                            </b>Không nên thử up ảnh người yêu v...v nếu không thấy hậu quả đắng lòng. Có thanh niên đã nhảy cầu tự tử khi biết người yêu bấy lâu là Saori Hara.</p>
+                        <br>
+                        <p>Bạn có thể thử với một số link ảnh dưới đây:</p>
+                    </div>
+                    <br>
+                    <div class="ui four doubling cards" ng-cloak>
+                        <div class="card" ng-repeat="image in testImages">
+                            <a target="_blank" ng-href="{{image}}" class="image test-thumbnail">
+                                <img ng-src="{{image}}">
+                            </a>
+                        </div>
+                    </div>
+
+                    <h2 id="idol-list" class="section ui horizontal header divider">
+                        Danh sách idol
+                    </h2>
+                    <div>
+                        <div class="ui text container">
+                            <p>Hiện tại, hệ thống có thông tin của 2000 JAV/Gravure idol nổi tiếng nhất, và có thể nhận diện được
+                                <b>500/2000</b>
+                                trong tổng số này.</p>
+                            <p>Admin sẽ cố gắng bổ sung thông tin và nâng cao khả năng nhận diện của hệ thống mỗi tháng.</p>
+                        </div>
+                        <br>
+                        <div class="ui fluid icon input">
+                            <input type="text" ng-model="idolSearch" placeholder="Tìm idol">
+                            <i class="search icon"></i>
+                        </div>
+
+                        <div class="idol-list ui six doubling cards" ng-cloak>
+                            <div dir-paginate="idol in idols | filter: idolSearch | itemsPerPage: 12" class="card">
+                                <a target="_blank" ng-href="{{idol.bigThumb}}" class="image idol-thumbnail">
+                                    <img ng-src="{{idol.thumbnail}}">
                                 </a>
                                 <div class="content">
-                                    <div class="header">{{entry.idols}}</div>
+                                    <!--<a target="blank" ng-href="{{idol.link}}" class="header">{{idol.name}}</a>-->
+                                    <a target="blank" class="header">{{idol.name}}</a>
                                     <div class="meta">
-                                        {{entry.time | dateFromNow}}
+                                        <span ng-if="idol.id <= 500">
+                                            <i class="green check circle icon"></i>
+                                            Có thể nhận diện</span>
+                                        <span ng-if="idol.id > 500">
+                                            <i class="red remove circle icon"></i>
+                                            Chưa thể nhận diện</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <dir-pagination-controls class="right floated"></dir-pagination-controls>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <h2 id="review" class="section ui horizontal header divider">
+                        Đánh giá
+                    </h2>
+
+                    <div class="ui text container">
+                        <div class="ui statistics idol-statistics">
+                            <div class="statistic">
+                                <div class="value">
+                                    <i class="heart icon"></i>
+                                    {{totalEntries.length + 3000}}
+                                </div>
+                                <div class="label">
+                                    Ảnh đã nhận diện
+                                </div>
+                            </div>
+                            <div class="statistic">
+                                <div class="value">
+                                    <i class="user secret icon"></i>
+                                    8000
+                                </div>
+                                <div class="label">
+                                    Lượt visit
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        Tuy mới ra đời, nhưng
+                        <b>Nhận diện Idol</b>
+                        đã nhận được kha khá những đánh giá vô cùng khả quan từ phía cộng đồng.</p>
+
+                </div>
+                <br>
+
+                <div class="ui vertical stripe quote segment">
+                    <div class="ui equal width stackable internally celled grid">
+                        <div class="center aligned row">
+                            <div class="column">
+                                <h3>"Thật không thể tin nổi! Ứng dụng nhỏ, nhưng là một bước tiến lớn về công nghệ."</h3>
+                                <p><img src="/images/quang.jpg" class="ui avatar image">
+                                    <b>Nổ Văn Quảng</b>
+                                    Giám đốc VAV, JAV và BKAV
+                                </p>
+                            </div>
+                            <div class="column">
+                                <h3>"Có nằm mơ tôi cũng không ngờ công nghệ của Microsoft lại được áp dụng một cách sáng tạo như thế"</h3>
+                                <p><img src="/images/bill.jpg" class="ui avatar image">
+                                    <b>Biu Gết</b>
+                                    Sáng lập Microsoft
+                                </p>
+                            </div>
+                            <div class="column">
+                                <h3>"Một cái tát thẳng vào mặt những thằng post ảnh không đưa link"</h3>
+                                <p>
+                                    <img src="/images/huy.jpg" class="ui avatar image">
+                                    <b>Anh Huy Phạm</b>
+                                    Admin Page 18+
+                                </p>
+                            </div>
+                            <div class="column">
+                                <h3>"Ứng dụng rất hữu ích, giúp ông nhìn mặt nhớ tên mấy đứa cháu gái thân thương"</h3>
+                                <p>
+                                    <img src="/images/shigeo.jpg" class="ui avatar image">
+                                    <b>Shigeo Tokuda</b>
+                                    Cụ già thần thánh
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 id="about" class="section ui horizontal header divider">
+                    Về tác giả
+                </h2>
+
+                <div class="ui text container">
+                    <div class="ui grid">
+                        <div class="sixteen wide mobile ten wide computer column">
+                            <h3>Về tác giả</h3>
+                            <p>Tác là Phạm Huy Hoàng, cựu sinh viên Đại học FPT, tác giả của blog IT
+                                <a target="_blank" href="https://toidicodedao.com">Tôi đi Code dạo</a>. Vốn trầm lặng ít nói nên anh rất ít khi khoe khoang về bản thân. Quý bạn đoc có thể tìm hiểu thêm
+                                <a target="_blank" href="https://toidicodedao.com/about">ở đây</a>.
+                            </p>
+                            <p>Cám cảnh dân tình post ảnh 18+ mà không share link, làm cho bách tích lầm than, dân tình oán thán, anh dốt hết tâm huyết không ăn không ngủ 3 ngày 3 đêm để viết nên
+                                <b>Nhận diện Idol</b>. Nếu thấy có ích, quý bạn đọc hãy like
+                                <a target="_blank" href="https://www.facebook.com/toidicodedao/">fanpage</a>
+                                bên phải để ủng hộ tác giả nhé.
+                            </p>
+                        </div>
+                        <div class="sixteen wide mobile six wide computer column">
+                            <div class="fb-page" data-href="https://www.facebook.com/toidicodedao" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                                <blockquote cite="https://www.facebook.com/toidicodedao" class="fb-xfbml-parse-ignore">
+                                    <a href="https://www.facebook.com/toidicodedao">Tôi đi code dạo</a>
+                                </blockquote>
+                            </div>
+                        </div>
+
+                        <div class="sixteen wide column">
+                            <h3>Về công nghệ</h3>
+                            <p>Sản phẩm áp dụng khá nhiều công nghệ hiện đại, vừa để tác giả luyện tập, vừa để phục vụ người dùng.
+                            </p>
+                            <p>
+                                Sử dụng Serverless Architecture và Cloud Computing,
+                                <b>Nhận diện Idol</b>
+                                có thể phục vụ cho hàng ngàn cho tới hàng triệu người sử dụng.</p>
+                            <h4>Back end</h4>
+                            <div>
+                                <div class="ui eight doubling cards">
+                                    <div class="card" ng-repeat="image in backends">
+                                        <a target="_blank" class="image test-thumbnail">
+                                            <img ng-src="/images/{{image}}">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <h4>Front end</h4>
+                            <div>
+                                <div class="ui eight doubling cards">
+                                    <div class="card" ng-repeat="image in frontends">
+                                        <a target="_blank" class="image test-thumbnail">
+                                            <img ng-src="/images/{{image}}">
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -138,286 +376,75 @@
                     </div>
                 </div>
 
-                <h2 id="guide" class="section ui horizontal header divider">
-                    Hướng dẫn sử dụng
+                <h2 id="discuss" class="section ui horizontal header divider">
+                    Bình luận
                 </h2>
 
-                <div class="ui text container">
-
-
-                    <p>Cách sử dụng cực kì đơn giản</p>
-                    <p>
-                        <b>Bước 1:</b>
-                        Click chuột phải vào tấm hình bạn muốn tìm, chọn "Copy Image Address"</p>
-                    <p>
-                        <b>Bước 2:</b>
-                        Paste vào textbox và bấm "Nhận diện idol". Nếu ảnh nằm trong máy, bạn nhấp vào "Upload ảnh", chọn ảnh và bấm "Nhận diện Idol"</p>
-                    <p>
-
-                      <img src="/images/guide.png" class="ui image">
-                      <h3 class="section ui horizontal header divider">
-                          Về ứng dụng
-                      </h3>
-                      <p><b>Hiện tại ứng dụng chỉ hoạt động cho Chrome, Android và iOS 9 trở lên</b></p>
-                        <b>Nhận diện idol</b>
-                        có thể hỗ trợ bạn tìm tên và link của hầu hết các JAV Idol nổi tiếng thông qua khuôn mặt.</p>
-                    <p>Máy nhận dạng với độ chính xác vào khoảng <b>60 đến 80%</b>, ảnh một hay nhiều người cũng chơi tuốt.
-                    </p>
-                    <p>Hiện tại, do dữ liệu còn ít nên hệ thống chỉ có thể nhận diện được khoảng 500 idol nổi tiếng. Dữ liệu này sẽ được cập nhật mỗi tháng.</p>
-                    <p>Nếu thử không ra kết quả đúng, hãy tìm idol trong danh sách phía dưới để xem hệ thống có thể nhận diện được chưa nhé.</p>
-                    <p>
-                        <b>Lưu ý:
-                        </b>Không nên thử up ảnh người yêu v...v nếu không thấy hậu quả đắng lòng. Có thanh niên đã nhảy cầu tự tử khi biết người yêu bấy lâu là Saori Hara.</p>
-                    <br>
-                    <p>Bạn có thể thử với một số link ảnh dưới đây:</p>
-                </div>
-                <br>
-                <div class="ui four doubling cards" ng-cloak>
-                    <div class="card" ng-repeat="image in testImages">
-                        <a target="_blank" ng-href="{{image}}" class="image test-thumbnail">
-                            <img ng-src="{{image}}">
-                        </a>
-                    </div>
-                </div>
-
-                <h2 id="idol-list" class="section ui horizontal header divider">
-                    Danh sách idol
-                </h2>
-                <div>
-                    <div class="ui text container">
-                        <p>Hiện tại, hệ thống có thông tin của 2000 JAV/Gravure idol nổi tiếng nhất, và có thể nhận diện được
-                            <b>500/2000</b>
-                            trong tổng số này.</p>
-                        <p>Admin sẽ cố gắng bổ sung thông tin và nâng cao khả năng nhận diện của hệ thống mỗi tháng.</p>
-                    </div>
-                    <br>
-                    <div class="ui fluid icon input">
-                        <input type="text" ng-model="idolSearch" placeholder="Tìm idol">
-                        <i class="search icon"></i>
-                    </div>
-
-                    <div class="idol-list ui six doubling cards" ng-cloak>
-                        <div dir-paginate="idol in idols | filter: idolSearch | itemsPerPage: 12" class="card">
-                            <a target="_blank" ng-href="{{idol.bigThumb}}" class="image idol-thumbnail">
-                                <img ng-src="{{idol.thumbnail}}">
-                            </a>
-                            <div class="content">
-                                <!--<a target="blank" ng-href="{{idol.link}}" class="header">{{idol.name}}</a>-->
-                                <a target="blank" class="header">{{idol.name}}</a>
-                                <div class="meta">
-                                    <span ng-if="idol.id <= 500">
-                                        <i class="green check circle icon"></i>
-                                        Có thể nhận diện</span>
-                                    <span ng-if="idol.id > 500">
-                                        <i class="red remove circle icon"></i>
-                                        Chưa thể nhận diện</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <dir-pagination-controls class="right floated"></dir-pagination-controls>
-                </div>
-
-                <div class="clearfix"></div>
-
-                <h2 id="review" class="section ui horizontal header divider">
-                    Đánh giá
-                </h2>
-
-
-                <div class="ui text container">
-                  <div class="ui statistics idol-statistics">
-                      <div class="statistic">
-                          <div class="value">
-                              <i class="heart icon"></i>
-                              {{totalEntries.length + 3000}}
-                          </div>
-                          <div class="label">
-                              Ảnh đã nhận diện
-                          </div>
-                      </div>
-                      <div class="statistic">
-                          <div class="value">
-                              <i class="user secret icon"></i>
-                              8000
-                          </div>
-                          <div class="label">
-                              Lượt visit
-                          </div>
-                      </div>
-                  </div>
-                  <br>
-                  Tuy mới ra đời, nhưng
-                    <b>Nhận diện Idol</b>
-                    đã nhận được kha khá những đánh giá vô cùng khả quan từ phía cộng đồng.</p>
-
-            </div>
-            <br>
-
-            <div class="ui vertical stripe quote segment">
-                <div class="ui equal width stackable internally celled grid">
-                    <div class="center aligned row">
-                        <div class="column">
-                            <h3>"Thật không thể tin nổi! Ứng dụng nhỏ, nhưng là một bước tiến lớn về công nghệ."</h3>
-                            <p><img src="/images/quang.jpg" class="ui avatar image">
-                                <b>Nổ Văn Quảng</b>
-                                Giám đốc VAV, JAV và BKAV
-                            </p>
-                        </div>
-                        <div class="column">
-                            <h3>"Có nằm mơ tôi cũng không ngờ công nghệ của Microsoft lại được áp dụng một cách sáng tạo như thế"</h3>
-                            <p><img src="/images/bill.jpg" class="ui avatar image">
-                                <b>Biu Gết</b>
-                                Sáng lập Microsoft
-                            </p>
-                        </div>
-                        <div class="column">
-                            <h3>"Một cái tát thẳng vào mặt những thằng post ảnh không đưa link"</h3>
-                            <p>
-                                <img src="/images/huy.jpg" class="ui avatar image">
-                                <b>Anh Huy Phạm</b>
-                                Admin Page 18+
-                            </p>
-                        </div>
-                        <div class="column">
-                            <h3>"Ứng dụng rất hữu ích, giúp ông nhìn mặt nhớ tên mấy đứa cháu gái thân thương"</h3>
-                            <p>
-                                <img src="/images/shigeo.jpg" class="ui avatar image">
-                                <b>Shigeo Tokuda</b>
-                                Cụ già thần thánh
-                            </p>
-                        </div>
-                    </div>
+                <div class="ui container">
+                    <div class="fb-comments" data-href="http://jav-idol.toidicodedao.com/" data-order-by="reverse_time" data-numposts="15"></div>
                 </div>
             </div>
 
-            <h2 id="about" class="section ui horizontal header divider">
-                Về tác giả
-            </h2>
+            <div id="fb-root"></div>
+            <script>
+                (function(d, s, id) {
+                    var js,
+                        fjs = d.getElementsByTagName(s)[0];
+                    if (d.getElementById(id))
+                        return;
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=1427665520889672";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));
+            </script>
 
-            <div class="ui text container">
-                <div class="ui grid">
-                    <div class="sixteen wide mobile ten wide computer column">
-                        <h3>Về tác giả</h3>
-                        <p>Tác là Phạm Huy Hoàng, cựu sinh viên Đại học FPT, tác giả của blog IT
-                            <a target="_blank" href="https://toidicodedao.com">Tôi đi Code dạo</a>. Vốn trầm lặng ít nói nên anh rất ít khi khoe khoang về bản thân. Quý bạn đoc có thể tìm hiểu thêm
-                            <a target="_blank" href="https://toidicodedao.com/about">ở đây</a>.
-                        </p>
-                        <p>Cám cảnh dân tình post ảnh 18+ mà không share link, làm cho bách tích lầm than, dân tình oán thán, anh dốt hết tâm huyết không ăn không ngủ 3 ngày 3 đêm để viết nên
-                            <b>Nhận diện Idol</b>. Nếu thấy có ích, quý bạn đọc hãy like
-                            <a target="_blank" href="https://www.facebook.com/toidicodedao/">fanpage</a>
-                            bên phải để ủng hộ tác giả nhé.
-                        </p>
-                    </div>
-                    <div class="sixteen wide mobile six wide computer column">
-                        <div class="fb-page" data-href="https://www.facebook.com/toidicodedao" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
-                            <blockquote cite="https://www.facebook.com/toidicodedao" class="fb-xfbml-parse-ignore">
-                                <a href="https://www.facebook.com/toidicodedao">Tôi đi code dạo</a>
-                            </blockquote>
-                        </div>
-                    </div>
+        </body>
 
-                    <div class="sixteen wide column">
-                        <h3>Về công nghệ</h3>
-                        <p>Sản phẩm áp dụng khá nhiều công nghệ hiện đại, vừa để tác giả luyện tập, vừa để phục vụ người dùng.
-                        </p>
-                        <p>
-                            Sử dụng Serverless Architecture và Cloud Computing,
-                            <b>Nhận diện Idol</b>
-                            có thể phục vụ cho hàng ngàn cho tới hàng triệu người sử dụng.</p>
-                        <h4>Back end</h4>
-                        <div>
-                            <div class="ui eight doubling cards">
-                                <div class="card" ng-repeat="image in backends">
-                                    <a target="_blank" class="image test-thumbnail">
-                                        <img ng-src="/images/{{image}}">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <h4>Front end</h4>
-                        <div>
-                            <div class="ui eight doubling cards">
-                                <div class="card" ng-repeat="image in frontends">
-                                    <a target="_blank" class="image test-thumbnail">
-                                        <img ng-src="/images/{{image}}">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <h2 id="discuss" class="section ui horizontal header divider">
-                Bình luận
-            </h2>
-
-            <div class="ui container">
-                <div class="fb-comments" data-href="http://jav-idol.toidicodedao.com/" data-order-by="reverse_time" data-numposts="15"></div>
-            </div>
-        </div>
-
-        <div id="fb-root"></div>
         <script>
-            (function(d, s, id) {
-                var js,
-                    fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id))
-                    return;
-                js = d.createElement(s);
-                js.id = id;
-                js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.8&appId=1427665520889672";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
+            (function(i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function() {
+                    (i[r].q = i[r].q || []).push(arguments)
+                },
+                i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-88777570-1', 'auto');
+            ga('send', 'pageview');
         </script>
 
-    </body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.tpls.min.js"></script>
+        <!-- Firebase -->
+        <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
+        <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
 
-    <script>
-        (function(i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function() {
-                (i[r].q = i[r].q || []).push(arguments)
-            },
-            i[r].l = 1 * new Date();
-            a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyCpeV8PVQDIl_kHL00erE7mGrw3b11In2o",
+                authDomain: "javidolfacebackup.firebaseapp.com",
+                databaseURL: "https://javidolfacebackup.firebaseio.com",
+                storageBucket: "javidolfacebackup.appspot.com",
+                messagingSenderId: "552716101995"
+            };
+            firebase.initializeApp(config);
+        </script>
 
-        ga('create', 'UA-88777570-1', 'auto');
-        ga('send', 'pageview');
-    </script>
+        <script src="/js/libs/dirPagination.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment-with-locales.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/vi.js"></script>
+        <script src="/js/main.js"></script>
+        <script src="/js/app.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.tpls.min.js"></script>
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
-    <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
-
-    <script>
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyCpeV8PVQDIl_kHL00erE7mGrw3b11In2o",
-        authDomain: "javidolfacebackup.firebaseapp.com",
-        databaseURL: "https://javidolfacebackup.firebaseio.com",
-        storageBucket: "javidolfacebackup.appspot.com",
-        messagingSenderId: "552716101995"
-      };
-      firebase.initializeApp(config);
-    </script>
-
-    <script src="/js/libs/dirPagination.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment-with-locales.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/vi.js"></script>
-    <script src="/js/main.js"></script>
-    <script src="/js/app.js"></script>
-
-</html>
+    </html>
