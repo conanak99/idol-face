@@ -89,6 +89,7 @@
                             <div ng-class="{loading: isLoading}" class="ui action input">
                                 <input type="text" ng-if="input.source == 'link'" ng-model="input.imageLink" placeholder="Link ảnh"/>
                                 <input type="file" fileread="input.imageLink" ng-if="input.source == 'file'" placeholder="Upload ảnh"/>
+  <!--
                                 <button ng-disabled="isLoading || !input.imageLink" ng-click="recognize()" class="ui icon primary button">
 
                                     <span ng-if="!isLoading">
@@ -98,6 +99,7 @@
                                         <i class="spinner loading icon"></i>
                                         Đang tìm, chờ tí</span>
                                 </button>
+                                -->
                             </div>
                         </div>
                     </div>
