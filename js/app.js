@@ -89,6 +89,10 @@ app.factory('recognizeService', [
         uploadImageImgur(imgBase64) {
             toastr.info("Đang up ảnh");
             const url = 'https://api.imgur.com/3/image';
+            var base= imgBase64
+            .replace('data:image/jpeg;base64,','')
+            .replace('data:image/png;base64,','')
+            .replace('data:image/gif;base64,','');
 
             return $http({
                 method: 'POST',
@@ -97,8 +101,7 @@ app.factory('recognizeService', [
                   'Authorization': 'Client-ID 56e948d072dfed8'
                 },
                 data: {
-                    image: imgBase64,
-                    type: "base64"
+                    image: base
                 }
             });
         },
@@ -259,7 +262,7 @@ app.controller('mainCtrl', [
             if ($scope.input.source == 'link') {
                 recognizeService.recognizeImage($scope.input.imageLink).then(displayResult).catch(displayError);
             } else {
-                recognizeService.uploadImageUrl($scope.input.imageLink).then(result => {
+                recognizeService.uploadImageImgur($scope.input.imageLink).then(result => {
                     //let url = result.data.url;
                     let url = result.data.data.link;
                     $scope.input.imageLink = url;
@@ -296,6 +299,7 @@ app.controller('mainCtrl', [
 
         function displayError(error) {
             console.log(error);
+            toastr.warning('Có lỗi xảy ra, bạn quay lại sau nhé.');
             $scope.isLoading = false;
         }
 
