@@ -54,11 +54,6 @@
             <div class="ui header inverted center aligned segment">
                 <div class="ui text container">
                     <img width="100" src="/images/header_logo.jpg" alt="" class="ui center">
-
-                    <h1 class="ui red inverted small-margin">
-                        APP ĐANG BẢO TRÌ VÔ THỜI HẠN
-                    </h1>
-
                     <h1 class="ui inverted small-margin">
                         Nhận diện idol
                     </h1>
@@ -66,7 +61,7 @@
                 </div>
             </div>
 <br>
-            <div class="ui text container">
+            <div ng-hide="isBeta" class="ui text container">
                 <h2 class="ui red header">VỀ VIỆC TOOL NHẬN DIỆN IDOL TẠM NGƯNG HOAT ĐỘNG</h2>
                 <img src="/images/notice.jpg" class="ui image">
                 <br>
@@ -115,8 +110,8 @@
                                 <div ng-class="{loading: isLoading}" class="ui action input">
                                     <input type="text" ng-if="input.source == 'link'" ng-model="input.imageLink" placeholder="Link ảnh"/>
                                     <input type="file" fileread="input.imageLink" ng-if="input.source == 'file'" placeholder="Upload ảnh"/>
-                                    <!--
-                                <button ng-disabled="isLoading || !input.imageLink" ng-click="recognize()" class="ui icon primary button">
+
+                                <button ng-hide="!isBeta" ng-disabled="isLoading || !input.imageLink" ng-click="recognize()" class="ui icon primary button">
 
                                     <span ng-if="!isLoading">
                                         <i class="search icon"></i>
@@ -125,7 +120,7 @@
                                         <i class="spinner loading icon"></i>
                                         Đang tìm, chờ tí</span>
                                 </button>
-                                -->
+
                                 </div>
                             </div>
                         </div>

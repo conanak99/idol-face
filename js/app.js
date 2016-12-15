@@ -86,6 +86,22 @@ app.factory('recognizeService', [
             });
         },
 
+        uploadImageImgur(imgBase64) {
+            toastr.info("Đang up ảnh");
+            const url = 'https://api.imgur.com/3/image';
+
+            return $http({
+                method: 'POST',
+                url,
+                headers: {
+                  'Authorization': 'Client-ID 56e948d072dfed8'
+                },
+                data: {
+                    image: imgBase64,
+                    type: "base64"
+                }
+            });
+        },
         getImageSize(imgLink) {
             return $q((resolve, reject) => {
                 const img = new Image(); // Create new img element
@@ -97,19 +113,19 @@ app.factory('recognizeService', [
         },
 
         checkAdultContent(imgLink) {
-          const key = 'k7dgy05qyfs8uwjvjrjdobt9x17c3yu0gteqyd0qqkomeu3di60kxsrkutl9yge0s2ixiil766r';
-          const url = 'https://jav-recognize.azurewebsites.net/api/CheckAdult';
+            const key = 'k7dgy05qyfs8uwjvjrjdobt9x17c3yu0gteqyd0qqkomeu3di60kxsrkutl9yge0s2ixiil766r';
+            const url = 'https://jav-recognize.azurewebsites.net/api/CheckAdult';
 
-          return $http({
-              method: 'POST',
-              url,
-              headers: {
-                  'x-functions-key': key
-              },
-              data: {
-                  url: imgLink
-              }
-          });
+            return $http({
+                method: 'POST',
+                url,
+                headers: {
+                    'x-functions-key': key
+                },
+                data: {
+                    url: imgLink
+                }
+            });
         },
 
         recognizeImage(imgLink) {
@@ -188,6 +204,11 @@ app.controller('mainCtrl', [
     'toastr',
     '$firebaseArray',
     ($scope, recognizeService, idolService, toastr, $firebaseArray) => {
+
+        if (window.location.href.indexOf('beta')!== -1) {
+          $scope.isBeta = true;
+        }
+
         $scope.input = {
             source: 'link',
             imageLink: ""
@@ -238,8 +259,9 @@ app.controller('mainCtrl', [
             if ($scope.input.source == 'link') {
                 recognizeService.recognizeImage($scope.input.imageLink).then(displayResult).catch(displayError);
             } else {
-                recognizeService.uploadImage($scope.input.imageLink).then(result => {
-                    const url = result.data.url;
+                recognizeService.uploadImageUrl($scope.input.imageLink).then(result => {
+                    //let url = result.data.url;
+                    let url = result.data.data.link;
                     $scope.input.imageLink = url;
                     return url;
                 }).then(recognizeService.recognizeImage.bind(recognizeService)).then(displayResult).catch(displayError);
@@ -255,18 +277,17 @@ app.controller('mainCtrl', [
             } else {
                 if ($scope.faces[0].candidate.name !== 'Unknown') {
                     // Check latest entries
-                    recognizeService.checkAdultContent($scope.input.imageLink)
-                    .then(checkResult => {
-                      var isAdultContent = checkResult.data.adult.isAdultContent;
-                      if (!isAdultContent) {
-                        $scope.latestEntries.$add({
-                            image: $scope.input.imageLink,
-                            time: moment().format(),
-                            idols: result.map(face => face.candidate.name).join(', ')
-                        });
-                      } else {
-                        toastr.warning('Ảnh có nội dung nhạy cảm, không hiện trên real-time nhé!');
-                      }
+                    recognizeService.checkAdultContent($scope.input.imageLink).then(checkResult => {
+                        var isAdultContent = checkResult.data.adult.isAdultContent;
+                        if (!isAdultContent) {
+                            $scope.latestEntries.$add({
+                                image: $scope.input.imageLink,
+                                time: moment().format(),
+                                idols: result.map(face => face.candidate.name).join(', ')
+                            });
+                        } else {
+                            toastr.warning('Ảnh có nội dung nhạy cảm, không hiện trên real-time nhé!');
+                        }
                     });
 
                 }
