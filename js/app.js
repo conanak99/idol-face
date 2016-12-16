@@ -47,8 +47,8 @@ app.factory('idolService', [
 
         return {
             loadIdols() {
-              //var link = 'https://s3-ap-southeast-1.amazonaws.com/linhtinh-hoangph/topIdols.json';
-              let link = "/js/idols-filtered.json";
+              let link = 'https://s3-ap-southeast-1.amazonaws.com/linhtinh-hoangph/idols-filtered.json';
+              //let link = "/js/idols-filtered.json";
                 return $http({method: 'GET', url: link}).then(result => result.data.map(idol => {
                     return {
                         id: idol.ID,
@@ -204,8 +204,8 @@ app.controller('mainCtrl', [
     '$firebaseArray',
     ($scope, recognizeService, idolService, toastr, $firebaseArray) => {
 
-        if (window.location.href.indexOf('beta')!== -1 || Math.random() < 0.6) {
-          // Hen hoac beta thi vao
+        if (window.location.href.indexOf('beta')!== -1 || Math.random() < 0.3) {
+          // Hữu duyên hoặc beta thi vao
           $scope.isBeta = true;
         }
 
