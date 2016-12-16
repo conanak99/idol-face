@@ -235,8 +235,6 @@ app.controller('mainCtrl', [
         var query = ref.orderByChild("timestamp").limitToLast(8);
         $scope.latestEntries = $firebaseArray(query);
 
-        $scope.totalEntries = $firebaseArray(ref);
-
         idolService.loadIdols().then(result => {
             $scope.idols = result;
         });
