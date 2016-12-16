@@ -228,10 +228,11 @@
                                     <!--<a target="blank" ng-href="{{idol.link}}" class="header">{{idol.name}}</a>-->
                                     <a target="blank" class="header">{{idol.name}}</a>
                                     <div class="meta">
-                                        <span ng-if="idol.id <= 500">
+                                      {{idol.id}}
+                                        <span ng-if="idol.id <= 500 || idol.id > 10000">
                                             <i class="green check circle icon"></i>
                                             Có thể nhận diện</span>
-                                        <span ng-if="idol.id > 500">
+                                        <span ng-if="idol.id > 500 && idol.id < 10000">
                                             <i class="red remove circle icon"></i>
                                             Chưa thể nhận diện</span>
                                     </div>
@@ -252,7 +253,7 @@
                             <div class="statistic">
                                 <div class="value">
                                     <i class="heart icon"></i>
-                                    {{totalEntries.length + 3000}}
+                                    130000
                                 </div>
                                 <div class="label">
                                     Ảnh đã nhận diện
@@ -261,7 +262,7 @@
                             <div class="statistic">
                                 <div class="value">
                                     <i class="user secret icon"></i>
-                                    8000
+                                    100000
                                 </div>
                                 <div class="label">
                                     Lượt visit
@@ -321,25 +322,19 @@
                     <div class="ui grid">
                         <div class="sixteen wide mobile ten wide computer column">
                             <h3>Về tác giả</h3>
-                            <p>Tác là Phạm Huy Hoàng, cựu sinh viên Đại học FPT, tác giả của blog IT
+                            <p>Tác giả là Phạm Huy Hoàng, cựu sinh viên Đại học FPT, tác giả của blog IT
                                 <a target="_blank" href="https://toidicodedao.com">Tôi đi Code dạo</a>. Vốn trầm lặng ít nói nên anh rất ít khi khoe khoang về bản thân. Quý bạn đoc có thể tìm hiểu thêm
                                 <a target="_blank" href="https://toidicodedao.com/about">ở đây</a>.
                             </p>
-                            <p>Cám cảnh dân tình post ảnh 18+ mà không share link, làm cho bách tích lầm than, dân tình oán thán, anh dốt hết tâm huyết không ăn không ngủ 3 ngày 3 đêm để viết nên
+                            <p>Đồng tác giả còn có anh Nguyễn Nhật Hoàng, cũng là cựu sinh viên FPT, còn trầm lặng ít nói hơn. Anh cũng có một blog IT tại
+                                <a target="_blank" href="https://codeaholicguy.com">Codeaholicguy</a>.
+                            </p>
+                            <p>Cám cảnh dân tình post ảnh 18+ mà không share link, làm cho bách tích lầm than, dân tình oán thán, hai anh dốc hết tâm huyết không ăn không ngủ 3 ngày 3 đêm để viết nên
                                 <b>Nhận diện Idol</b>. Nếu thấy có ích, quý bạn đọc hãy like
                                 <a target="_blank" href="https://www.facebook.com/toidicodedao/">fanpage</a>
                                 bên phải để ủng hộ tác giả nhé.
                             </p>
-                        </div>
-                        <div class="sixteen wide mobile six wide computer column">
-                            <div class="fb-page" data-href="https://www.facebook.com/toidicodedao" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
-                                <blockquote cite="https://www.facebook.com/toidicodedao" class="fb-xfbml-parse-ignore">
-                                    <a href="https://www.facebook.com/toidicodedao">Tôi đi code dạo</a>
-                                </blockquote>
-                            </div>
-                        </div>
 
-                        <div class="sixteen wide column">
                             <h3>Về công nghệ</h3>
                             <p>Sản phẩm áp dụng khá nhiều công nghệ hiện đại, vừa để tác giả luyện tập, vừa để phục vụ người dùng.
                             </p>
@@ -367,6 +362,23 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="sixteen wide mobile six wide computer column">
+                            <div class="fb-page" data-href="https://www.facebook.com/toidicodedao" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                                <blockquote cite="https://www.facebook.com/toidicodedao" class="fb-xfbml-parse-ignore">
+                                    <a href="https://www.facebook.com/toidicodedao">Tôi đi code dạo</a>
+                                </blockquote>
+                            </div>
+
+                            <div class="fb-page" data-href="https://www.facebook.com/codeaholicguy.fanpage" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                                <blockquote cite="https://www.facebook.com/codeaholicguy.fanpage" class="fb-xfbml-parse-ignore">
+                                    <a href="https://www.facebook.com/codeaholicguy.fanpage">Codeaholicguy</a>
+                                </blockquote>
+                            </div>
+                        </div>
+
+                        <div class="sixteen wide column">
+
                         </div>
                     </div>
                 </div>

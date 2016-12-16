@@ -45,21 +45,17 @@ app.factory('idolService', [
     '$http',
     function($http) {
 
-        function nameToLink(name) {
-            // Generate thumbnail link based on name
-            var lowerCaseName = name.trim().split(' ').map(n => n.toLowerCase()).join('-');
-            return `http://www.japanesebeauties.net/japanese/${lowerCaseName}/1/cute-${lowerCaseName}-1.jpg`;
-        }
-
         return {
             loadIdols() {
-                return $http({method: 'GET', url: 'https://s3-ap-southeast-1.amazonaws.com/linhtinh-hoangph/topIdols.json'}).then(result => result.data.map(idol => {
+              //var link = 'https://s3-ap-southeast-1.amazonaws.com/linhtinh-hoangph/topIdols.json';
+              let link = "/js/idols-filtered.json";
+                return $http({method: 'GET', url: link}).then(result => result.data.map(idol => {
                     return {
                         id: idol.ID,
                         name: idol.Name,
                         link: `http://www.jjgirls.com${idol.Link}`,
-                        thumbnail: nameToLink(idol.Name),
-                        bigThumb: nameToLink(idol.Name).replace('cute-', '')
+                        thumbnail: idol.Thumbnail,
+                        bigThumb: idol.Thumbnail//.replace('cute-', '')
                     };
                 }));
             }
@@ -208,7 +204,8 @@ app.controller('mainCtrl', [
     '$firebaseArray',
     ($scope, recognizeService, idolService, toastr, $firebaseArray) => {
 
-        if (window.location.href.indexOf('beta')!== -1) {
+        if (window.location.href.indexOf('beta')!== -1 || Math.random() < 0.6) {
+          // Hen hoac beta thi vao
           $scope.isBeta = true;
         }
 
@@ -219,7 +216,7 @@ app.controller('mainCtrl', [
         $scope.oldImgLink = "";
 
         $scope.isLoading = false;
-        $scope.testImages = ['http://res.cloudinary.com/hoangcloud/image/upload/v1481518034/jav-idols/u6dmau0dvs0bbzohgh8f.jpg', 'http://res.cloudinary.com/hoangcloud/image/upload/v1481515410/jav-idols/olzmtmys7prvep3z0ckf.jpg', 'http://res.cloudinary.com/hoangcloud/image/upload/v1481451527/jav-idols/dhsxrhbvsayxz57smane.jpg', 'http://wallpaperim.net/upload/2014/10/12/20141012102829-81eb8fcc.jpg'];
+        $scope.testImages = ['http://static.tumblr.com/7a4fd6ba3a3afc6ec5f40da743c73087/6yy4m4k/A4Nnnqkaz/tumblr_static_tumblr_static_1rwlu0ber8e8wskg0ksss48w8_focused_v3.png', 'http://res.cloudinary.com/hoangcloud/image/upload/v1481515410/jav-idols/olzmtmys7prvep3z0ckf.jpg', 'http://res.cloudinary.com/hoangcloud/image/upload/v1481451527/jav-idols/dhsxrhbvsayxz57smane.jpg', 'http://wallpaperim.net/upload/2014/10/12/20141012102829-81eb8fcc.jpg'];
 
         $scope.backends = [
             'cognitive.jpg',
