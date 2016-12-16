@@ -55,7 +55,7 @@ app.factory('idolService', [
                         name: idol.Name,
                         link: `http://www.jjgirls.com${idol.Link}`,
                         thumbnail: idol.Thumbnail,
-                        bigThumb: idol.Thumbnail//.replace('cute-', '')
+                        bigThumb: idol.Thumbnail.replace('cute-', '')
                     };
                 }));
             }
