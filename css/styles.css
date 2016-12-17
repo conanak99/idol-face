@@ -44,6 +44,8 @@
 
 .idol-name-popup {
   margin: 0 auto;
+  min-height: 20vh;
+  min-width: 120px;
   max-height: 30vh;
 }
 

@@ -15,7 +15,7 @@
 
         <meta property="fb:admins" content="100001799469827"/>
         <meta property="fb:app_id" content="1427665520889672"/>
-        <meta property="og:title" content="Nhận diện idol"/>
+        <meta property="og:title" content="Nhận diện JAV Idol"/>
         <meta property="og:url" content="http://jav-idol.toidicodedao.com/"/>
         <meta property="og:description" content="Công cụ giúp bạn tìm JAV idol mà không cần hóng link từ các " thánh""/>
         <meta property="og:image" content="http://jav-idol.toidicodedao.com/images/logo.png"/>
@@ -140,14 +140,14 @@
                             <div class="source-image">
                                 <img src="http://placehold.it/600x300?text=JAV+idol" ng-if="!input.imageLink" class="ui"/>
                                 <img ng-if="input.imageLink" ng-src="{{input.imageLink}}" id="source-image" class="ui"/>
-                                <div class="idol-face" ng-style="face.face" ng-repeat="face in faces">
+                                <div popup data-html="<img class='ui image idol-name-popup' src='{{face.candidate.thumbnail}}' />" data-position="bottom center"  class="idol-face" ng-style="face.face" ng-repeat="face in faces">
                                     <!--
                                 <a target="_blank" ng-href="http://www.jjgirls.com{{face.candidate.link}}">
                                     <span ng-style="face.candidate.nameStyle" class="idol-name">{{face.candidate.name}}</span>
                                 </a>
 -->
                                     <a target="_blank">
-                                        <span popup data-html="<img class='ui image idol-name-popup' src='{{face.candidate.thumbnail}}' />" data-position="bottom center" ng-style="face.candidate.nameStyle" class="idol-name">{{face.candidate.name}}</span>
+                                        <span ng-style="face.candidate.nameStyle" class="idol-name">{{face.candidate.name}}</span>
                                     </a>
                                 </div>
                             </div>
@@ -223,7 +223,7 @@
                         <div class="ui text container">
                             <p>Hiện tại, hệ thống có thông tin của 2000 JAV/Gravure idol nổi tiếng nhất, và có thể nhận diện được
                                 <b>500/2000</b>
-                                trong tổng số này.</p>
+                                trong tổng số này. Không có trong list này thì tìm không ra đâu :v.</p>
                             <p>Admin sẽ cố gắng bổ sung thông tin và nâng cao khả năng nhận diện của hệ thống mỗi tháng.</p>
                         </div>
                         <br>
