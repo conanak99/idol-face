@@ -10,6 +10,11 @@
         <meta name="description" content="Nhận diện JAV Idol">
         <meta name="keywords" content="JAV, Microsoft Cognitive API">
         <meta name="author" content="Hoàng Phạm">
+        <meta property="fb:admins" content="1195630633840241"/>
+        <meta property="og:title" content="Nhận diện idol"/>
+        <meta property="og:description" content="Công cụ giúp bạn tìm JAV idol mà không cần hóng link từ các " thánh""/>
+        <meta property="og:image" content="/images/logo.png"/>
+        <meta property="fb:app_id" content="1427665520889672"/>
         <meta name="theme-color" content="#ffffff">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css"/>
@@ -60,7 +65,7 @@
                     <h4 class="small-margin">Công cụ giúp bạn tìm JAV idol mà không cần hóng link từ các "thánh"</h4>
                 </div>
             </div>
-<br>
+            <br>
             <div ng-hide="isBeta" class="ui text container">
                 <h2 class="ui red header">VỀ VIỆC TOOL NHẬN DIỆN IDOL TẠM NGƯNG HOAT ĐỘNG</h2>
                 <img src="/images/notice.jpg" class="ui image">
@@ -84,9 +89,13 @@
                     bay cao chết, cung tốt vất bỏ; nước địch phá xong, mưu thần bị giết. Nay mục đích đã đạt thành, thiết nghĩ Kính Chiếu Yêu cũng không cần dùng nữa.
                 </p>
                 <p>
-                    Sau tại hạ, có thể sẽ có nhiều vị đại hiệp học rộng tài cao, lắm tài thừa đức ra tay luyện chế kính chiếu yêu bản mới, <b> xịn hơn tốt hơn </b>, tạo phúc cho muôn dân. Xin hẹn ngày tái ngộ. <b>Nói nôm na là khi nào hoàn thiện, sản phẩm xịn hơn chính xác hơn ngộ sẽ quay lại =)).</b>
+                    Sau tại hạ, có thể sẽ có nhiều vị đại hiệp học rộng tài cao, lắm tài thừa đức ra tay luyện chế kính chiếu yêu bản mới,
+                    <b>
+                        xịn hơn tốt hơn
+                    </b>, tạo phúc cho muôn dân. Xin hẹn ngày tái ngộ.
+                    <b>Nói nôm na là khi nào hoàn thiện, sản phẩm xịn hơn chính xác hơn ngộ sẽ quay lại =)).</b>
                 </div>
-<br>
+                <br>
                 <div id="top" class="ui container">
                     <div class="application" ng-cloak>
                         <div class="ui form">
@@ -111,15 +120,15 @@
                                     <input type="text" ng-if="input.source == 'link'" ng-model="input.imageLink" placeholder="Link ảnh"/>
                                     <input type="file" fileread="input.imageLink" ng-if="input.source == 'file'" placeholder="Upload ảnh"/>
 
-                                <button ng-hide="!isBeta" ng-disabled="isLoading || !input.imageLink" ng-click="recognize()" class="ui icon primary button">
+                                    <button ng-hide="!isBeta" ng-disabled="isLoading || !input.imageLink" ng-click="recognize()" class="ui icon primary button">
 
-                                    <span ng-if="!isLoading">
-                                        <i class="search icon"></i>
-                                        Tìm idol</span>
-                                    <span ng-if="isLoading">
-                                        <i class="spinner loading icon"></i>
-                                        Đang tìm, chờ tí</span>
-                                </button>
+                                        <span ng-if="!isLoading">
+                                            <i class="search icon"></i>
+                                            Tìm idol</span>
+                                        <span ng-if="isLoading">
+                                            <i class="spinner loading icon"></i>
+                                            Đang tìm, chờ tí</span>
+                                    </button>
 
                                 </div>
                             </div>
@@ -135,10 +144,7 @@
                                 </a>
 -->
                                     <a target="_blank">
-                                        <span popup
-                                        data-html="<img class='ui image idol-name-popup' src='{{face.candidate.thumbnail}}' />"
-                                        data-position="bottom center"
-                                         ng-style="face.candidate.nameStyle" class="idol-name">{{face.candidate.name}}</span>
+                                        <span popup data-html="<img class='ui image idol-name-popup' src='{{face.candidate.thumbnail}}' />" data-position="bottom center" ng-style="face.candidate.nameStyle" class="idol-name">{{face.candidate.name}}</span>
                                     </a>
                                 </div>
                             </div>
@@ -154,7 +160,7 @@
                                     <div class="content">
                                         <div class="header">{{entry.idols}}</div>
                                         <div class="meta">
-                                          <span time="{{entry.time}}"></span>
+                                            <span time="{{entry.time}}"></span>
 
                                         </div>
                                     </div>
@@ -380,9 +386,7 @@
                             </div>
                         </div>
 
-                        <div class="sixteen wide column">
-
-                        </div>
+                        <div class="sixteen wide column"></div>
                     </div>
                 </div>
 
