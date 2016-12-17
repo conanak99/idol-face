@@ -1,4 +1,13 @@
 const app = angular.module('jav-idol-face', ['angular-loading-bar', 'angularUtils.directives.dirPagination', 'firebase', 'toastr']);
+app.filter('dateFromNow', function() {
+    return function(date) {
+        if (!moment) {
+            console.log('Error: momentJS is not loaded as a global');
+            return '!momentJS';
+        }
+        return moment(date).fromNow();
+    }
+});
 
 app.directive("fileread", [() => ({
         scope: {
@@ -18,21 +27,43 @@ app.directive("fileread", [() => ({
         }
     })]);
 
+app.directive('time', [
+    '$timeout',
+    '$filter',
+    function($timeout, $filter) {
+
+        return function(scope, element, attrs) {
+            var time = attrs.time;
+            var intervalLength = 1000 * 10; // 10 seconds
+            var filter = $filter('dateFromNow');
+
+            function updateTime() {
+                element.text(filter(time));
+            }
+
+            function updateLater() {
+                timeoutId = $timeout(function() {
+                    updateTime();
+                    updateLater();
+                }, intervalLength);
+            }
+
+            element.bind('$destroy', function() {
+                $timeout.cancel(timeoutId);
+            });
+
+            updateTime();
+            updateLater();
+        };
+
+    }
+]);
+
 app.config([
     'toastrConfig', toastrConfig => {
         angular.extend(toastrConfig, {timeOut: 5000});
     }
 ]);
-
-app.filter('dateFromNow', function() {
-    return function(date) {
-        if (!moment) {
-            console.log('Error: momentJS is not loaded as a global');
-            return '!momentJS';
-        }
-        return moment(date).fromNow();
-    }
-});
 
 app.config([
     'paginationTemplateProvider',
@@ -47,8 +78,8 @@ app.factory('idolService', [
 
         return {
             loadIdols() {
-              let link = 'https://s3-ap-southeast-1.amazonaws.com/linhtinh-hoangph/idols-filtered.json';
-              //let link = "/js/idols-filtered.json";
+                let link = 'https://s3-ap-southeast-1.amazonaws.com/linhtinh-hoangph/idols-filtered.json';
+                //let link = "/js/idols-filtered.json";
                 return $http({method: 'GET', url: link}).then(result => result.data.map(idol => {
                     return {
                         id: idol.ID,
@@ -85,16 +116,13 @@ app.factory('recognizeService', [
         uploadImageImgur(imgBase64) {
             toastr.info("Đang up ảnh");
             const url = 'https://api.imgur.com/3/image';
-            var base= imgBase64
-            .replace('data:image/jpeg;base64,','')
-            .replace('data:image/png;base64,','')
-            .replace('data:image/gif;base64,','');
+            var base = imgBase64.replace('data:image/jpeg;base64,', '').replace('data:image/png;base64,', '').replace('data:image/gif;base64,', '');
 
             return $http({
                 method: 'POST',
                 url,
                 headers: {
-                  'Authorization': 'Client-ID 56e948d072dfed8'
+                    'Authorization': 'Client-ID 56e948d072dfed8'
                 },
                 data: {
                     image: base
@@ -204,9 +232,9 @@ app.controller('mainCtrl', [
     '$firebaseArray',
     ($scope, recognizeService, idolService, toastr, $firebaseArray) => {
 
-        if (window.location.href.indexOf('beta')!== -1 || Math.random() < 0.5) {
-          // Hữu duyên hoặc beta thi vao
-          $scope.isBeta = true;
+        if (window.location.href.indexOf('beta') !== -1 || Math.random() < 0.5) {
+            // Hữu duyên hoặc beta thi vao
+            $scope.isBeta = true;
         }
 
         $scope.input = {
@@ -216,10 +244,7 @@ app.controller('mainCtrl', [
         $scope.oldImgLink = "";
 
         $scope.isLoading = false;
-        $scope.testImages = ['http://static.tumblr.com/7a4fd6ba3a3afc6ec5f40da743c73087/6yy4m4k/A4Nnnqkaz/tumblr_static_tumblr_static_1rwlu0ber8e8wskg0ksss48w8_focused_v3.png',
-         'https://lh3.googleusercontent.com/-EKHh2b-F1tM/AAAAAAAAAAI/AAAAAAAAABI/OjJCdSKGnK4/photo.jpg',
-          'http://i.imgur.com/bbjKu0h.jpg',
-           'http://wallpaperim.net/upload/2014/10/12/20141012102829-81eb8fcc.jpg'];
+        $scope.testImages = ['http://static.tumblr.com/7a4fd6ba3a3afc6ec5f40da743c73087/6yy4m4k/A4Nnnqkaz/tumblr_static_tumblr_static_1rwlu0ber8e8wskg0ksss48w8_focused_v3.png', 'https://lh3.googleusercontent.com/-EKHh2b-F1tM/AAAAAAAAAAI/AAAAAAAAABI/OjJCdSKGnK4/photo.jpg', 'http://i.imgur.com/bbjKu0h.jpg', 'http://wallpaperim.net/upload/2014/10/12/20141012102829-81eb8fcc.jpg'];
 
         $scope.backends = [
             'cognitive.jpg',
