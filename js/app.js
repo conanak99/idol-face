@@ -59,15 +59,14 @@ app.directive('time', [
     }
 ]);
 
-app.directive('popup', function(){
-return{
-    restrict: 'A',
-    link: function(scope, element, attrs) {
-       $(element).popup({
-        on: 'hover'
-       });
+app.directive('popup', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            $(element).popup({on: 'hover'});
+        }
     }
-}});
+});
 
 app.config([
     'toastrConfig', toastrConfig => {
