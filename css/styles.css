@@ -42,6 +42,11 @@
     position: absolute;
 }
 
+.idol-name-popup {
+  margin: 0 auto;
+  max-height: 20vh;
+}
+
 .ui.cards.idol-list {
     margin-top: 0.5em;
     margin-bottom: 0.5em;

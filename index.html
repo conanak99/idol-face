@@ -135,7 +135,10 @@
                                 </a>
 -->
                                     <a target="_blank">
-                                        <span ng-style="face.candidate.nameStyle" class="idol-name">{{face.candidate.name}}</span>
+                                        <span popup
+                                        data-html="<img class='ui image idol-name-popup' src='{{face.candidate.thumbnail}}' />"
+                                        data-position="bottom center"
+                                         ng-style="face.candidate.nameStyle" class="idol-name">{{face.candidate.name}}</span>
                                     </a>
                                 </div>
                             </div>

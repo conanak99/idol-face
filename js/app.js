@@ -59,6 +59,16 @@ app.directive('time', [
     }
 ]);
 
+app.directive('popup', function(){
+return{
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+       $(element).popup({
+        on: 'hover'
+       });
+    }
+}});
+
 app.config([
     'toastrConfig', toastrConfig => {
         angular.extend(toastrConfig, {timeOut: 5000});
@@ -201,6 +211,7 @@ app.factory('recognizeService', [
                             const firstCandidate = r.candidates[0].idol;
                             candidate.name = firstCandidate.name;
                             candidate.link = firstCandidate.link;
+                            candidate.thumbnail = firstCandidate.thumbnail;
                         };
                         return {face: faceStyle, candidate};
                     });
