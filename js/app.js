@@ -130,7 +130,7 @@ app.factory('recognizeService', [
         recognizeImage(imgLink) {
             toastr.info("Đang nhận diện, có thể hơi lâu, vui lòng chờ");
             const key = 'k7dgy05qyfs8uwjvjrjdobt9x17c3yu0gteqyd0qqkomeu3di60kxsrkutl9yge0s2ixiil766r';
-            const url = 'https://jav-recognize.azurewebsites.net/api/HttpTriggerCSharp1';
+            const url = 'https://jav-recognize.azurewebsites.net/api/IdolRecognize';
 
             return $http({
                 method: 'POST',
@@ -204,7 +204,7 @@ app.controller('mainCtrl', [
     '$firebaseArray',
     ($scope, recognizeService, idolService, toastr, $firebaseArray) => {
 
-        if (window.location.href.indexOf('beta')!== -1 || Math.random() < 0.3) {
+        if (window.location.href.indexOf('beta')!== -1 || Math.random() < 0.5) {
           // Hữu duyên hoặc beta thi vao
           $scope.isBeta = true;
         }
