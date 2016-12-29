@@ -242,6 +242,8 @@ app.controller('mainCtrl', [
     '$firebaseArray',
     ($scope, recognizeService, idolService, toastr, $firebaseArray) => {
 
+        $scope.isBeta = true; //Unlock to all
+
         if (window.location.href.indexOf('beta') !== -1 || Math.random() < 0.5) {
             // Hữu duyên hoặc beta thi vao
             $scope.isBeta = true;
