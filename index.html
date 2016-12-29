@@ -68,36 +68,6 @@
                     <h4 class="small-margin">Công cụ giúp bạn tìm JAV idol mà không cần hóng link từ các "thánh"</h4>
                 </div>
             </div>
-            <br>
-            <div ng-hide="isBeta" class="ui text container">
-                <h2 class="ui red header">VỀ VIỆC TOOL NHẬN DIỆN IDOL TẠM NGƯNG HOAT ĐỘNG</h2>
-                <img src="/images/notice.jpg" class="ui image">
-                <br>
-                <p>
-                    Khi luyện chế món thần khí "Kính Chiếu Yêu", nhìn mặt đoán tên ma nữ Nhật Bổn này, tại hạ đã áp dụng Vô Thai Kiếm (Serverless Architecture). Theo lý thuyết, kiến trúc này có thế chịu tải từ hàng triệu truy cập.
-                </p>
-                <p>
-                    Ngờ đâu, tiếng lành đồn xa. Khắp nơi giang hồ đồn đại về món bảo bối Kính Chiếu Yêu có thể nhìn mặt điểm tên. Nhân sĩ võ lâm từ Launch, Beat, Ngưng Làm Bạn náo nức thử món bảo bối nọ.
-                </p>
-                <p>
-                    Vốn dĩ tự ngạo, tại hạ bàng quan toạ sơn ngắm dân tình sử dụng, vừa nhìn vừa vuốt râu gật gù: Lần nay quả là ta đã tạo phúc cho bá tánh. Ngờ đâu, mưu sự tại nhân, thành sự tại thiên, người tính không bằng trời tính. Bọn tư bản Microsoft tính tiền
-                    theo lượng truy cập, số lượng truy cập đột biến làm bay sạch vài nghìn kim nguyên bảo trong tài khoản làm tại hạ không kịp trở tay.
-                </p>
-                <p>
-                    Đến lúc tại hạ định thần lại thì ôi thôi, sự đã rồi, hết Kim Nguyên Bảo thì kính chiếu yêu lấy gì mà họat động. Tôn chỉ sống của tại hạ là: đã không làm thì thôi, đã làm phải làm free cho bá tánh. Vốn định ngửa tay xin donate tài trợ, xong vì tự thấy
-                    mình không đủ độ đẹp trai và mặt dày như vị thiếu hiệp nào đó, nên đành ngậm ngùi thở dài.
-                </p>
-                <p>
-                    Vốn dĩ, mục đích của tại hạ khi luyện chế tool này là để rèn luyện trình độ, thử nghiệm võ công, đồng thời cũng thử xem công nghệ đã có thể nhận diện được mặt mũi bọn yêu nữ Nhật hay không. Người đời có câu: Thỏ khôn chết, chó săn bị mổ thịt; chim
-                    bay cao chết, cung tốt vất bỏ; nước địch phá xong, mưu thần bị giết. Nay mục đích đã đạt thành, thiết nghĩ Kính Chiếu Yêu cũng không cần dùng nữa.
-                </p>
-                <p>
-                    Sau tại hạ, có thể sẽ có nhiều vị đại hiệp học rộng tài cao, lắm tài thừa đức ra tay luyện chế kính chiếu yêu bản mới,
-                    <b>
-                        xịn hơn tốt hơn
-                    </b>, tạo phúc cho muôn dân. Xin hẹn ngày tái ngộ.
-                    <b>Nói nôm na là khi nào hoàn thiện, sản phẩm xịn hơn chính xác hơn ngộ sẽ quay lại =)).</b>
-                </div>
                 <br>
                 <div id="top" class="ui container">
                     <div class="application" ng-cloak>
@@ -123,7 +93,7 @@
                                     <input type="text" ng-if="input.source == 'link'" ng-model="input.imageLink" placeholder="Link ảnh"/>
                                     <input type="file" fileread="input.imageLink" ng-if="input.source == 'file'" placeholder="Upload ảnh"/>
 
-                                    <button ng-hide="!isBeta" ng-disabled="isLoading || !input.imageLink" ng-click="recognize()" class="ui icon primary button">
+                                    <button ng-disabled="isLoading || !input.imageLink" ng-click="recognize()" class="ui icon primary button">
 
                                         <span ng-if="!isLoading">
                                             <i class="search icon"></i>
@@ -382,11 +352,13 @@
                                 </blockquote>
                             </div>
 
-                            <div class="fb-page" data-href="https://www.facebook.com/codeaholicguy.fanpage" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
-                                <blockquote cite="https://www.facebook.com/codeaholicguy.fanpage" class="fb-xfbml-parse-ignore">
-                                    <a href="https://www.facebook.com/codeaholicguy.fanpage">Codeaholicguy</a>
+                            <div class="fb-page" data-href="https://www.facebook.com/codeaholicguy" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                                <blockquote cite="https://www.facebook.com/codeaholicguy" class="fb-xfbml-parse-ignore">
+                                    <a href="https://www.facebook.com/codeaholicguy">Codeaholicguy</a>
                                 </blockquote>
                             </div>
+
+                            <!-- <div>https://www.facebook.com/msftazurevn/</div> -->
                         </div>
 
                         <div class="sixteen wide column"></div>
