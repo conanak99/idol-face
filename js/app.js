@@ -87,8 +87,8 @@ app.factory('idolService', [
 
         return {
             loadIdols() {
-                let link = 'https://s3-ap-southeast-1.amazonaws.com/linhtinh-hoangph/idols-filtered.json';
-                //let link = "/js/idols-filtered.json";
+                //let link = 'https://s3-ap-southeast-1.amazonaws.com/linhtinh-hoangph/idols-filtered.json';
+                let link = "/data/idols-filtered.json";
                 return $http({method: 'GET', url: link}).then(result => result.data.map(idol => {
                     return {
                         id: idol.ID,
