@@ -256,7 +256,7 @@ app.controller('mainCtrl', [
         $scope.oldImgLink = "";
 
         $scope.isLoading = false;
-        $scope.testImages = ['http://static.tumblr.com/7a4fd6ba3a3afc6ec5f40da743c73087/6yy4m4k/A4Nnnqkaz/tumblr_static_tumblr_static_1rwlu0ber8e8wskg0ksss48w8_focused_v3.png', 'https://lh3.googleusercontent.com/-EKHh2b-F1tM/AAAAAAAAAAI/AAAAAAAAABI/OjJCdSKGnK4/photo.jpg', 'http://i.imgur.com/bbjKu0h.jpg', 'http://wallpaperim.net/upload/2014/10/12/20141012102829-81eb8fcc.jpg'];
+        $scope.testImages = ['http://static.tumblr.com/7a4fd6ba3a3afc6ec5f40da743c73087/6yy4m4k/A4Nnnqkaz/tumblr_static_tumblr_static_1rwlu0ber8e8wskg0ksss48w8_focused_v3.png', 'https://lh3.googleusercontent.com/-EKHh2b-F1tM/AAAAAAAAAAI/AAAAAAAAABI/OjJCdSKGnK4/photo.jpg', 'http://i.imgur.com/bbjKu0h.jpg', 'http://www.empixcrew.net/wp-content/uploads/2012/04/11.jpg'];
 
         $scope.backends = [
             'cognitive.jpg',
