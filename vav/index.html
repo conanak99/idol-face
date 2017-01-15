@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link data-require="semantic-ui@*" data-semver="2.1.8" rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.1.8/semantic.min.css" />
+    <script data-require="semantic-ui@*" data-semver="2.1.8" src="https://cdn.jsdelivr.net/semantic-ui/2.1.8/semantic.min.js"></script>
+    <script data-require="angular.js@1.6.0" data-semver="1.6.0" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+    <title>Nhận diện VAV Idol</title>
+</head>
+
+<body ng-app="app" ng-controller="mainCtrl">
+    <div class="ui container">
+        <div class="ui container"></div>
+        <h1>Nhận diện VAV Idol</h1>
+        <div class="ui form">
+            <div class="field">
+                <div ng-class="{loading: isLoading}" class="ui action input">
+                    <input type="text" ng-model="imageLink" placeholder="Link ảnh" />
+
+                    <button ng-disabled="isLoading || !imageLink" ng-click="recognize()" class="ui icon primary button">
+                        <span ng-if="!isLoading">
+                                        <i class="search icon"></i>
+                                        Tìm idol</span>
+                        <span ng-if="isLoading">
+                                        <i class="spinner loading icon"></i>
+                                        Đang tìm, chờ tí</span>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="source-image">
+            <img ng-if="imageLink" ng-src="{{imageLink}}" id="source-image" class="ui" />
+            <div class="idol-face" ng-repeat="face in faceDisplay" ng-style="face.style">
+                <span class="idol-name">{{face.name}}</span>
+            </div>
+        </div>
+        <br>
+
+        <div class="ui grid">
+            <div class="four wide column">
+                <h4>List idols</h4>
+                <div class="ui bulleted list">
+                    <div class="item" ng-repeat="idol in idols">{{idol}}</div>
+                </div>
+            </div>
+            <div class="twelve wide column">
+                <h4>JSON result</h4>
+                <div><pre>{{faces | json:2}}</pre>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div>
+            <h4>Test images</h4>
+            <div class="ui four cards">
+                <div class="card" ng-repeat="image in testImages">
+                    <a target="_blank" ng-href="{{image}}" class="image test-thumbnail">
+                        <img ng-src="{{image}}">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+/* Styles go here */
+
+.source-image {
+    position: relative;
+    display: inline-block;
+}
+
+.idol-face {
+    position: absolute;
+    text-align: left;
+    width: 0;
+    height: 0;
+    border: 2px #009c95 solid;
+    cursor: pointer;
+}
+
+.idol-name {
+    color: #f26202;
+    min-width: 100px;
+    position: absolute;
+}
