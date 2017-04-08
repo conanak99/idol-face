@@ -2,10 +2,10 @@
 <html>
 
 <head>
-    <link data-require="semantic-ui@*" data-semver="2.1.8" rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.1.8/semantic.min.css" />
-    <script data-require="semantic-ui@*" data-semver="2.1.8" src="https://cdn.jsdelivr.net/semantic-ui/2.1.8/semantic.min.js"></script>
-    <script data-require="angular.js@1.6.0" data-semver="1.6.0" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.1.8/semantic.min.css" />
     <link rel="stylesheet" href="style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.js"></script>
+
     <script src="script.js"></script>
     <title>Nhận diện VAV Idol</title>
 </head>
@@ -14,6 +14,8 @@
     <div class="ui container">
         <div class="ui container"></div>
         <h1>Nhận diện VAV Idol</h1>
+
+        <!-- Form để dán ảnh và submit -->
         <div class="ui form">
             <div class="field">
                 <div ng-class="{loading: isLoading}" class="ui action input">
@@ -32,6 +34,8 @@
             </div>
         </div>
         <br>
+
+        <!-- Hiển thị ảnh của idol và kết quả nhận diện -->
         <div class="source-image">
             <img ng-if="imageLink" ng-src="{{imageLink}}" id="source-image" class="ui" />
             <div class="idol-face" ng-repeat="face in faceDisplay" ng-style="face.style">
@@ -40,6 +44,7 @@
         </div>
         <br>
 
+        <!-- Hiển thị danh sách idol và kết quả trả về dưới dạng JSON -->
         <div class="ui grid">
             <div class="four wide column">
                 <h4>List idols</h4>
@@ -54,6 +59,8 @@
             </div>
         </div>
         <br>
+
+        <!-- Hiển thị các ảnh dể test -->
         <div>
             <h4>Test images</h4>
             <div class="ui four cards">
