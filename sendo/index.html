@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <title>Nhận diện JAV Idol</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+  <meta name="description" content="Nhận diện JAV Idol">
+  <meta name="keywords" content="JAV, Microsoft Cognitive API">
+  <meta name="author" content="Hoàng Phạm">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <meta property="fb:admins" content="100001799469827" />
+  <meta property="fb:app_id" content="1427665520889672" />
+  <meta property="og:title" content="Nhận diện JAV Idol" />
+  <meta property="og:url" content="http://jav-idol.toidicodedao.com/" />
+  <meta property="og:description" content="Công cụ giúp bạn tìm JAV idol mà không cần hóng link từ các " thánh ""/>
+  <meta property="og:image" content="http://jav-idol.toidicodedao.com/images/logo.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.min.css" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body ng-app="sendo-app" ng-controller="mainCtrl">
+
+  <div id="top" class="ui container">
+    <h1>Test app sendo nào</h1>
+    <div class="application" ng-cloak>
+      <div class="ui form">
+        <div class="inline fields">
+          <label for="fruit">Dán link vào đây hoặc upload ảnh</label>
+          <div class="field" ng-click="input.source = 'link'">
+            <div class="ui radio checkbox">
+              <input type="radio" name="source" ng-model="input.source" value="link" checked="" tabindex="0" class="hidden">
+              <label for="link">Dán link</label>
+            </div>
+          </div>
+          <div class="field" ng-click="input.source = 'file'">
+            <div class="ui radio checkbox">
+              <input type="radio" name="fruit" ng-model="input.source" value="file" tabindex="0" class="hidden">
+              <label for="file">Upload ảnh</label>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <div ng-class="{loading: isLoading}" class="ui action input">
+            <input type="text" ng-if="input.source == 'link'" ng-model="input.imageLink" placeholder="Link ảnh" />
+            <input type="file" fileread="input.imageLink" ng-if="input.source == 'file'" placeholder="Upload ảnh" />
+            <button ng-disabled="isLoading || !input.imageLink" ng-click="recognize()" class="ui icon primary button">
+
+                                    <span ng-if="!isLoading">
+                                        <i class="search icon"></i>
+                                        Tìm sản phẩm</span>
+                                    <span ng-if="isLoading">
+                                        <i class="spinner loading icon"></i>
+                                        Đang tìm, chờ tí</span>
+                                </button>
+          </div>
+        </div>
+      </div>
+      <div class="ui center aligned basic segment">
+        <div class="source-image">
+          <img src="http://placehold.it/600x300?text=Sản phầm" ng-if="!input.imageLink" class="ui" />
+          <img ng-if="input.imageLink" ng-src="{{input.imageLink}}" id="source-image" class="ui" />
+        </div>
+      </div>
+      <div class="ui clearfix">
+        <div>
+          <h3>Kết quả</h3>
+          <div>
+            <div class="ui four doubling cards">
+              <a ng-href="https://www.sendo.vn/{{product.cat_path}}"
+              target="_blank"
+              ng-repeat="product in result" class="card">
+                <div class="image">
+                  <img ng-src="{{product.img_url}}">
+                </div>
+                <div class="content">
+                  <div class="price">
+                    <span class="final-price">{{product.final_price | number:0}} đ </span>
+
+                    <span class="original-price right floated">
+                      <strike>{{product.price | number:0}} đ</strike>
+                    </span>
+                  </div>
+                  <div class="header">{{product.name}}</div>
+                  <div class="meta">
+                    {{product.shop_name}}
+                  </div>
+
+                </div>
+                <div class="extra content">
+                  <span>
+        <i class="unhide icon"></i>
+        {{product.counter_view | number:0}}
+      </span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-toastr/2.1.1/angular-toastr.tpls.min.js"></script>
+<!-- Firebase -->
+<script type="text/javascript" src="https://sdk.clarifai.com/js/clarifai-latest.js"></script>
+<script>
+  var clarifai = new Clarifai.App(
+    'c1SqIFJVEUzXhQyxbe_Jdj34-yxpDxudQvxFl1h5',
+    '9mQigA11gJ4WmpcQ44anNo10Ry8Gk9DrZPb3WCTs'
+  );
+</script>
+<script src="/app.js"></script>
+
+</html>
